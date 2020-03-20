@@ -88,20 +88,20 @@ public enum Parser {
 
 extension Document {
     public convenience init?(string: String, baseURL url: URL? = nil, encoding: String.Encoding = .utf8, options: Parser.Options = [.suppressWarnings, .suppressErrors, .relaxed]) throws {
-        guard let pointer = try Parser.parse(string, baseURL: url, options: options) else { return nil }
-        self.init(rawValue: pointer)
+        guard let xmlDoc = try Parser.parse(string, baseURL: url, options: options) else { return nil }
+        self.init(rawValue: xmlDoc)
     }
 }
 
 extension DocumentFragment {
     public convenience init?(string: String, options: Parser.Options = [.suppressWarnings, .suppressErrors, .relaxed]) throws {
-        guard let htmlDoc = try Parser.parse(string, options: options),
-            let htmlDocFragment = xmlNewDocFragment(htmlDoc)
+        guard let xmlDoc = try Parser.parse(string, options: options),
+            let xmlDocFragment = xmlNewDocFragment(xmlDoc)
             else { return nil }
 
-        //        defer { xmlFree(htmlDocFragment) }
+//        defer { xmlFree(xmlDocFragment) }
 
-        self.init(rawValue: htmlDocFragment)
+        self.init(rawValue: xmlDocFragment)
     }
 }
 // MARK: -

@@ -1,9 +1,20 @@
 import libxml2
 
 @_exported import DOM
+@_exported import XPath
 
 extension DocumentFragment {
-    public var children: [Node] {
-        return sequence(first: xmlDoc.pointee.children, next: { $0.pointee.next }).compactMap { Node.construct(with: $0) }
+    public func search(xpath: XPath.Expression) -> [Element] {
+        guard case .nodeSet(let nodeSet) = evaluate(xpath: xpath) else { return [] }
+        return nodeSet.compactMap { Element($0) }
+    }
+
+    public func evaluate(xpath: XPath.Expression) -> XPath.Object? {
+        guard let context = Context(fragment: self) else { return nil }
+
+        guard let object = xmlXPathCompiledEval(xpath.rawValue, context.rawValue) else { return nil }
+//        defer { xmlXPathFreeObject(object) }
+
+        return XPath.Object(rawValue: object)
     }
 }

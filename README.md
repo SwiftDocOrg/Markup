@@ -155,14 +155,13 @@ let package = Package(
 )
 ```
 
-Next, add the `HTML` and/or `XML` modules 
-as dependencies to your targets as needed:
+Next, add `Markup` as a dependency to your target(s):
 
 ```swift
 targets: [
 .target(
-    name: "YourProject",
-    dependencies: ["HTML", "XML"]),
+    name: "YourTarget",
+    dependencies: ["Markup"]),
 ```
 
 Finally, run the `swift build` command to build your project.

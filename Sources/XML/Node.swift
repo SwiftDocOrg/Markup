@@ -26,3 +26,4 @@ extension Node: Constructable {
         rawValue.bindMemory(to: _xmlNode.self, capacity: 1)
     }
 }
+

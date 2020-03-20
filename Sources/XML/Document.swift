@@ -49,11 +49,22 @@ public final class Document: DOM.Document {
         self.init(rawValue: UnsafeMutableRawPointer(xmlDoc))
     }
 
-    // MARK: -
+    // MARK: - RawRepresentable
 
     public required init?(rawValue: UnsafeMutableRawPointer) {
         guard rawValue.bindMemory(to: _xmlDoc.self, capacity: 1).pointee.type == XML_DOCUMENT_NODE else { return nil }
         super.init(rawValue: rawValue)
+    }
+
+    // MARK: - CustomStringConvertible
+
+    public override var description: String {
+        var buffer: UnsafeMutablePointer<xmlChar>?
+        defer { xmlFree(buffer) }
+
+        xmlDocDumpMemoryEnc(xmlDoc, &buffer, nil, "UTF-8")
+
+        return String(cString: buffer!)
     }
 }
 
@@ -81,18 +92,5 @@ extension Document {
 
     var xmlDoc: xmlDocPtr {
         rawValue.bindMemory(to: _xmlDoc.self, capacity: 1)
-    }
-}
-
-// MARK: - CustomStringConvertible
-
-extension Document: CustomStringConvertible {
-    public var description: String {
-        var buffer: UnsafeMutablePointer<xmlChar>?
-        defer { xmlFree(buffer) }
-
-        xmlDocDumpMemoryEnc(xmlDoc, &buffer, nil, "UTF-8")
-
-        return String(cString: buffer!)
     }
 }

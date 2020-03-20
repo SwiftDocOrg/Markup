@@ -49,7 +49,7 @@ public final class Document: DOM.Document {
         self.init(rawValue: UnsafeMutableRawPointer(xmlDoc))
     }
 
-    // MARK: -
+    // MARK: - RawRepresentable
 
     var htmlDoc: htmlDocPtr {
         rawValue.bindMemory(to: _xmlDoc.self, capacity: 1)
@@ -58,6 +58,20 @@ public final class Document: DOM.Document {
     public required init?(rawValue: UnsafeMutableRawPointer) {
         guard rawValue.bindMemory(to: _xmlDoc.self, capacity: 1).pointee.type == XML_HTML_DOCUMENT_NODE else { return nil }
         super.init(rawValue: rawValue)
+    }
+
+    // MARK: - CustomStringConvertible
+
+    public override var description: String {
+        let buffer = xmlBufferCreate()
+        defer { xmlBufferFree(buffer) }
+
+        let output = xmlOutputBufferCreateBuffer(buffer, nil)
+        defer { xmlOutputBufferClose(output) }
+
+        htmlDocContentDumpFormatOutput(output, htmlDoc, nil, 0)
+
+        return String(cString: xmlOutputBufferGetContent(output))
     }
 }
 
@@ -77,22 +91,5 @@ extension Document {
 //        defer { xmlXPathFreeObject(object) }
 
         return XPath.Object(rawValue: object)
-    }
-}
-
-
-// MARK: - CustomStringConvertible
-
-extension Document: CustomStringConvertible {
-    public var description: String {
-        let buffer = xmlBufferCreate()
-        defer { xmlBufferFree(buffer) }
-
-        let output = xmlOutputBufferCreateBuffer(buffer, nil)
-        defer { xmlOutputBufferClose(output) }
-
-        htmlDocContentDumpFormatOutput(output, htmlDoc, nil, 0)
-
-        return String(cString: xmlOutputBufferGetContent(output))
     }
 }

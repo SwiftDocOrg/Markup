@@ -29,16 +29,3 @@ extension Element {
         }
     }
 }
-
-// MARK: - CustomStringConvertible
-
-extension Element: CustomStringConvertible {
-    public var description: String {
-        let buffer = xmlBufferCreate()
-        defer { xmlBufferFree(buffer) }
-        
-        xmlNodeDump(buffer, xmlNode.pointee.doc, xmlNode, 0, 0)
-        
-        return String(cString: xmlBufferContent(buffer))
-    }
-}

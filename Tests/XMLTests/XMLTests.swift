@@ -24,6 +24,7 @@ final class XMLTests: XCTestCase {
         do {
             let comment = children[0] as! Comment
             XCTAssertEqual(comment.content?.trimmingCharacters(in: .whitespaces), "begin greeting")
+            XCTAssertEqual(comment.description, "<!-- begin greeting -->")
         }
 
         do {
@@ -42,6 +43,7 @@ final class XMLTests: XCTestCase {
         do {
             let comment = children[2] as! Comment
             XCTAssertEqual(comment.content?.trimmingCharacters(in: .whitespaces), "end greeting")
+            XCTAssertEqual(comment.description, "<!-- end greeting -->")
         }
     }
 

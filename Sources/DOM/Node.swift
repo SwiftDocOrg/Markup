@@ -1,6 +1,6 @@
 import libxml2
 
-open class Node: RawRepresentable, Equatable, Hashable {
+open class Node: RawRepresentable, Equatable, Hashable, CustomStringConvertible {
     public enum SpacePreservingBehavior: Int32 {
         case `default` = 0
         case preserve = 1
@@ -52,6 +52,17 @@ open class Node: RawRepresentable, Equatable, Hashable {
     public convenience init?(_ node: Node?) {
         guard let rawValue = node?.rawValue else { return nil }
         self.init(rawValue: rawValue)
+    }
+
+    // MARK: - CustomStringConvertible
+
+    open var description: String {
+        let buffer = xmlBufferCreate()
+        defer { xmlBufferFree(buffer) }
+
+        xmlNodeDump(buffer, xmlNode.pointee.doc, xmlNode, 0, 0)
+
+        return String(cString: xmlBufferContent(buffer))
     }
 }
 

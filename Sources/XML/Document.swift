@@ -51,6 +51,10 @@ public final class Document: DOM.Document {
 
     // MARK: - RawRepresentable
 
+    var xmlDoc: xmlDocPtr {
+        rawValue.bindMemory(to: _xmlDoc.self, capacity: 1)
+    }
+
     public required init?(rawValue: UnsafeMutableRawPointer) {
         guard rawValue.bindMemory(to: _xmlDoc.self, capacity: 1).pointee.type == XML_DOCUMENT_NODE else { return nil }
         super.init(rawValue: rawValue)
@@ -83,14 +87,8 @@ extension Document {
         }
 
         guard let object = xmlXPathCompiledEval(xpath.rawValue, context.rawValue) else { return nil }
-//        defer { xmlXPathFreeObject(object) }
+        //        defer { xmlXPathFreeObject(object) }
 
         return XPath.Object(rawValue: object)
-    }
-
-    // MARK: -
-
-    var xmlDoc: xmlDocPtr {
-        rawValue.bindMemory(to: _xmlDoc.self, capacity: 1)
     }
 }

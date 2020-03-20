@@ -10,7 +10,8 @@ public enum Object: Hashable {
     public init?(rawValue: xmlXPathObjectPtr) {
         switch rawValue.pointee.type {
         case XPATH_NODESET:
-            self = .nodeSet(NodeSet(rawValue: rawValue.pointee.nodesetval))
+            guard let nodesetval = rawValue.pointee.nodesetval else { return nil }
+            self = .nodeSet(NodeSet(rawValue: nodesetval))
         case XPATH_BOOLEAN:
             self = .boolean(rawValue.pointee.boolval == 1) // TODO: formalize in extension
         case XPATH_NUMBER:

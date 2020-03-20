@@ -38,6 +38,8 @@ final class XMLTests: XCTestCase {
 
             element["formality"] = "standard"
             XCTAssertEqual(element.description, #"<greeting formality="standard">Hello!</greeting>"#)
+
+            XCTAssertEqual(element.evaluate(xpath: "string(text())"), .string("Hello!"))
         }
 
         do {
@@ -58,7 +60,6 @@ final class XMLTests: XCTestCase {
 
         element.prepend(sibling: " begin greeting " as Comment)
         element.append(sibling: " end greeting " as Comment)
-
 
         let expected: String = #"""
         <?xml version="1.0" encoding="UTF-8"?>

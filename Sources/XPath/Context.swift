@@ -15,9 +15,16 @@ public final class Context: RawRepresentable {
         self.init(xmlDoc: xmlNode.pointee.doc)
     }
 
+    public convenience init?(element: Element) {
+        guard let document = element.document else { return nil }
+        self.init(document: document)
+        let xmlNode = element.rawValue.bindMemory(to: _xmlNode.self, capacity: 1)
+        xmlXPathSetContextNode(xmlNode, rawValue)
+    }
+
     private convenience init?(xmlDoc: xmlDocPtr) {
         guard let context = xmlXPathNewContext(xmlDoc) else { return nil }
-        defer { xmlXPathFreeContext(context) }
+//        defer { xmlXPathFreeContext(context) }
         self.init(rawValue: context)
     }
 
@@ -28,7 +35,6 @@ public final class Context: RawRepresentable {
     public func evaluate(expression: Expression) -> XPath.Object? {
         guard let xmlObject = xmlXPathCompiledEval(expression.rawValue, rawValue) else { return nil }
 //        defer { xmlXPathFreeObject(xmlObject) }
-
         return XPath.Object(rawValue: xmlObject)
     }
 

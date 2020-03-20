@@ -13,9 +13,10 @@ based on [libxml2][libxml2].
 
 ## Features
 
-- [x] HTML Support
-- [x] Basic XML Support
+- [x] XML Support
+- [x] XHTML4 Support
 - [x] XPath Expression Evaluation
+- [ ] HTML5 Support (using [Gumbo][gumbo])
 - [ ] CSS Selector to XPath Functionality*
 - [ ] XML Namespace Support*
 - [ ] DTD and Relax-NG Validation*
@@ -175,6 +176,7 @@ MIT
 Mattt ([@mattt](https://twitter.com/mattt))
 
 [libxml2]: http://xmlsoft.org
+[gumbo]: https://github.com/google/gumbo-parser
 [ci badge]: https://github.com/SwiftDocOrg/Markup/workflows/CI/badge.svg
 [documentation badge]: https://github.com/SwiftDocOrg/Markup/workflows/Documentation/badge.svg
 [documentation]: https://github.com/SwiftDocOrg/Markup/wiki

@@ -1,6 +1,6 @@
 import libxml2.xpath
 
-public enum Object {
+public enum Object: Hashable {
     case nodeSet(NodeSet)
     case boolean(Bool)
     case number(Double)

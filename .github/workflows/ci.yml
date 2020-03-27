@@ -6,20 +6,27 @@ jobs:
   macos:
     runs-on: macOS-latest
 
+    strategy:
+      matrix:
+        xcode: ["11.4", "11.3"]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Install System Dependencies
+        if: matrix.xcode == '11.3'
+        run: brew bundle
       - name: Build and Test
         run: swift test
         env:
-          DEVELOPER_DIR: /Applications/Xcode_11.4.app/Contents/Developer
+          DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
 
   linux:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        swift: ["5.2"]
+        swift: ["5.2", "5.1"]
 
     container:
       image: swift:${{ matrix.swift }}
@@ -27,5 +34,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Install System Dependencies
+        run: |
+          apt-get update
+          apt-get install -y libxml2-dev
       - name: Build and Test
-        run: swift test
+        run: swift test --enable-test-discovery

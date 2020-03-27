@@ -1,4 +1,4 @@
-import libxml2.tree
+import libxml2
 
 public final class Element: Node {
     public enum CloningBehavior: Int32 {

@@ -1,4 +1,4 @@
-import libxml2.tree
+import libxml2
 
 public final class DocumentType: Node {
     public var name: String {

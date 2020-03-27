@@ -1,4 +1,4 @@
-import libxml2.tree
+import libxml2
 import Foundation
 
 open class Document: Node {
@@ -18,10 +18,8 @@ open class Document: Node {
     }
     
     public var encoding: String.Encoding {
-        let encodingName = String(cString: xmlDoc.pointee.encoding)
-        let encoding = CFStringConvertIANACharSetNameToEncoding(encodingName as CFString?)
-        guard encoding != kCFStringEncodingInvalidId else { return .utf8 }
-        return String.Encoding(rawValue: UInt(CFStringConvertEncodingToNSStringEncoding(encoding)))
+        let ianaCharacterSetName = String(cString: xmlDoc.pointee.encoding)
+        return String.Encoding(ianaCharacterSetName: ianaCharacterSetName)
     }
 
     public var root: Element? {

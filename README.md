@@ -1,10 +1,7 @@
 # Markup
 
-<!--
-Pending Swift 5.2 support
 ![CI][ci badge]
 [![Documentation][documentation badge]][documentation]
--->
 
 A Swift package for working with HTML, XML, and other markup languages,
 based on [libxml2][libxml2].
@@ -29,7 +26,8 @@ based on [libxml2][libxml2].
 
 ## Requirements
 
-- Swift 5.2+ 👈❗️
+- Swift 5.1+
+- [libxml2][libxml2] _(except for macOS with Xcode 11.4 or later)_
 
 ## Usage
 
@@ -139,7 +137,19 @@ document.body?.description // =>
 
 ### Swift Package Manager
 
-First, add the Markup package to your target dependencies in `Package.swift`:
+If you're on Linux or if you're on macOS and using Xcode < 11.4,
+install the [libxml2][libxml2] system library:
+
+```terminal
+# macOS for Xcode 11.3 and earlier
+$ brew install libxml2
+$ brew link --force libxml2
+
+# Linux (Ubuntu)
+$ sudo apt-get install libxml2-dev
+```
+
+Add the Markup package to your target dependencies in `Package.swift`:
 
 ```swift
 import PackageDescription
@@ -155,7 +165,7 @@ let package = Package(
 )
 ```
 
-Next, add `Markup` as a dependency to your target(s):
+Add `Markup` as a dependency to your target(s):
 
 ```swift
 targets: [
@@ -163,8 +173,6 @@ targets: [
     name: "YourTarget",
     dependencies: ["Markup"]),
 ```
-
-Finally, run the `swift build` command to build your project.
 
 ## License
 

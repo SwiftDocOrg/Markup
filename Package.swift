@@ -1,7 +1,12 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.1
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
+
+var providers: [SystemPackageProvider] = [.apt(["libxml2-dev"])]
+#if swift(<5.2)
+providers += [.brew(["libxml2"])]
+#endif
 
 let package = Package(
     name: "Markup",
@@ -18,30 +23,30 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
+        .systemLibrary(
+            name: "libxml2",
+            path: "Modules",
+            pkgConfig: "libxml-2.0",
+            providers: providers
+        ),
         .target(
             name: "DOM",
-            dependencies: [],
-            linkerSettings: [.linkedLibrary("xml2")]),
+            dependencies: ["libxml2"]),
         .target(
             name: "HTML",
-            dependencies: ["DOM", "XPath"],
-            linkerSettings: [.linkedLibrary("xml2")]),
+            dependencies: ["DOM", "XPath", "libxml2"]),
         .target(
             name: "XML",
-            dependencies: ["DOM", "XPath"],
-            linkerSettings: [.linkedLibrary("xml2")]),
+            dependencies: ["DOM", "XPath", "libxml2"]),
         .target(
             name: "XPath",
-            dependencies: ["DOM"],
-            linkerSettings: [.linkedLibrary("xml2")]),
+            dependencies: ["DOM", "libxml2"]),
         .target(
             name: "XInclude",
-            dependencies: [],
-            linkerSettings: [.linkedLibrary("xml2")]),
+            dependencies: ["libxml2"]),
         .target(
             name: "XSLT",
-            dependencies: [],
-            linkerSettings: [.linkedLibrary("xml2")]),
+            dependencies: ["libxml2"]),
         .testTarget(
             name: "HTMLTests",
             dependencies: ["HTML"]),

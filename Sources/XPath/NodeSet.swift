@@ -1,4 +1,4 @@
-import libxml2.xpath
+import libxml2
 
 import DOM
 

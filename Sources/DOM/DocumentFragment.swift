@@ -1,4 +1,4 @@
-import libxml2.tree
+import libxml2
 import Foundation
 
 public final class DocumentFragment: Node {

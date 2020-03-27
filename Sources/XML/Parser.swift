@@ -1,6 +1,6 @@
 import Foundation
 
-import libxml2.parser
+import libxml2
 
 public enum Parser {
     public struct Options: OptionSet {

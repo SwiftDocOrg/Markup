@@ -1,4 +1,4 @@
-import libxml2.xpath
+import libxml2
 
 public final class Expression: RawRepresentable {
     public var rawValue: xmlXPathCompExprPtr

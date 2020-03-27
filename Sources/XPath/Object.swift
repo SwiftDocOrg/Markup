@@ -1,4 +1,4 @@
-import libxml2.xpath
+import libxml2
 
 public enum Object: Hashable {
     case nodeSet(NodeSet)

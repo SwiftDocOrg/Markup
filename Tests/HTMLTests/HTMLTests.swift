@@ -13,10 +13,12 @@ final class HTMLTests: XCTestCase {
             <title>Hello, world!</title>
         </head>
         <body class="beautiful">
+            <?greeter start>
             <div class="wrapper">
                 <span>Hello,</span>
                 <span>world!</span>
             </div>
+            <?greeter end>
         </body>
         </html>
 
@@ -56,5 +58,12 @@ final class HTMLTests: XCTestCase {
 
         document?.search(xpath: "//div").first?.unwrap()
         XCTAssertEqual(a.parent, document?.body)
+
+        let instructions = document?.body?.children.compactMap { $0 as? ProcessingInstruction }
+        XCTAssertEqual(instructions?.count, 2)
+        XCTAssertEqual(instructions?.first?.target, "greeter")
+        XCTAssertEqual(instructions?.first?.content, "start")
+        XCTAssertEqual(instructions?.last?.target, "greeter")
+        XCTAssertEqual(instructions?.last?.content, "end")
     }
 }

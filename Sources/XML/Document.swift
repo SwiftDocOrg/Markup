@@ -92,3 +92,20 @@ extension Document {
         return XPath.Object(rawValue: object)
     }
 }
+
+// MARK: - Builder
+
+extension Document {
+    public convenience init?(@DOMBuilder builder: () -> Node) {
+        self.init()
+
+        switch builder() {
+        case let fragment as DocumentFragment & Constructable:
+            for child in fragment.children {
+                self.insert(child: child)
+            }
+        case let node:
+            self.insert(child: node)
+        }
+    }
+}

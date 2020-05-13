@@ -68,9 +68,13 @@ public final class Element: Node {
 
     // MARK: -
 
-    public convenience init(name: String) {
+    public convenience init(name: String, attributes: [String: String] = [:]) {
         let xmlNode = xmlNewNode(nil, name)!
         self.init(rawValue: UnsafeMutableRawPointer(xmlNode))!
+
+        for (attribute, value) in attributes {
+            self[attribute] = value.description
+        }
     }
 
     // MARK: -
@@ -95,5 +99,31 @@ extension Constructable where Self: Element {
                 return nil
             }
         }.joined(separator: " ")
+    }
+}
+
+// MARK: - DOMBuilder
+
+extension Element {
+    public convenience init(name: String, attributes: [String: String] = [:], @DOMBuilder children builder: () -> Node) {
+        self.init(name: name, attributes: attributes)
+
+        switch builder() {
+        case let fragment as DocumentFragment & Constructable:
+            for child in fragment.children {
+                self.insert(child: child)
+            }
+        case let node:
+            self.insert(child: node)
+        }
+    }
+}
+
+// MARK: - StringBuilder
+
+extension Element {
+    public convenience init(name: String, attributes: [String: String] = [:], @StringBuilder content builder: () -> String) {
+        self.init(name: name, attributes: attributes)
+        self.insert(child: Text(content: builder()))
     }
 }

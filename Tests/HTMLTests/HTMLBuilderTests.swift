@@ -12,14 +12,14 @@ final class HTMLBuilderTests: XCTestCase {
                 }
 
                 Element(name: "body", attributes: ["class": "beautiful"]) {
-                    ProcessingInstruction(name: "greeter") { "start" }
+                    ProcessingInstruction(target: "greeter") { "start" }
 
                     Element(name: "div", attributes: ["class": "wrapper"]) {
                         Element(name: "span") { "Hello," }
                         Element(name: "span") { "world!" }
                     }
 
-                    ProcessingInstruction(name: "greeter") { "end" }
+                    ProcessingInstruction(target: "greeter") { "end" }
                 }
             }
         }

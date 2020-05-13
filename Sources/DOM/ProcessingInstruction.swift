@@ -17,8 +17,8 @@ public final class ProcessingInstruction: Node {
 
     // MARK: -
 
-    public convenience init(name: String, content: String?) {
-        let xmlNode = xmlNewPI(name, content)!
+    public convenience init(target: String, content: String?) {
+        let xmlNode = xmlNewPI(target, content)!
         self.init(rawValue: UnsafeMutableRawPointer(xmlNode))!
     }
 
@@ -33,7 +33,7 @@ public final class ProcessingInstruction: Node {
 // MARK: - StringBuilder
 
 extension ProcessingInstruction {
-    public convenience init(name: String, @StringBuilder _ builder: () -> String) {
-        self.init(name: name, content: builder())
+    public convenience init(target: String, @StringBuilder _ builder: () -> String) {
+        self.init(target: target, content: builder())
     }
 }

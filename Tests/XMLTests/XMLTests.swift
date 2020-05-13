@@ -3,7 +3,7 @@ import Foundation
 import XML
 
 final class XMLTests: XCTestCase {
-    func testParse() throws {
+    func testParseXML() throws {
         let xml = #"""
         <?xml version="1.0" encoding="UTF-8"?>
         <!-- begin greeting -->
@@ -70,5 +70,26 @@ final class XMLTests: XCTestCase {
         """#
 
         XCTAssertEqual(document.description, expected)
+    }
+
+    func testParseXSD() throws {
+        let xsd = #"""
+        <?xml version="1.0" encoding="UTF-8"?>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <xs:import namespace="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="xsi.xsd"/>
+            <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+            <xs:element name="Heading.class" abstract="true">
+            <xs:element name="h1" substitutionGroup="xhtml:Heading.class"/>
+        </xs:schema>
+
+        """#
+
+        let document = try XML.Document(string: xsd)
+
+        XCTAssertNotNil(document)
+
+        let results = document?.search(xpath: "//xs:element[not(@abstract = 'true')]")
+        XCTAssertEqual(results?.count, 1)
+        XCTAssertEqual(results?.first?["name"], "h1")
     }
 }

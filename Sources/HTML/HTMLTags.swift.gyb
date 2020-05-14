@@ -1,0 +1,35 @@
+% warning = "This file was automatically generated and should not be edited."
+// ${warning}
+%{
+# encoding=utf8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+}%
+
+import DOM
+
+public func tag(_ name: String, _ attributes: [String: String] = [:], @DOMBuilder _ builder: () -> Node = { DocumentFragment() }) -> Element {
+    return Element(name: name, attributes: attributes, children: builder)
+}
+
+%{
+    import os
+    import re
+    import xml.etree.ElementTree as ET
+
+    namespaces = {"xs": "http://www.w3.org/2001/XMLSchema"}
+    tree = ET.parse(os.getcwd() + "/../../Resources/xhtml11.xsd")
+}%
+% for element in sorted(tree.iterfind(".//xs:element", namespaces), key=lambda rule: rule.get('name')):
+    % if element.get('name') and element.get('abstract') != 'true':
+        %{ name = element.get('name') }%
+        % if name == 'var':
+            %{ name = '`' + name + '`' }%
+        % end
+public func ${name}(_ attributes: [String: String] = [:], @DOMBuilder children builder: () -> Node = { DocumentFragment() }) -> Element {
+    return tag("${element.get('name')}", attributes, builder)
+}
+
+    % end
+% end

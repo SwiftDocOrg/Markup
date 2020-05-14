@@ -1,0 +1,4171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ....................................................................... -->
+<!-- XHTML 1.1 DTD  ........................................................ -->
+<!-- file: xhtml11.dtd -->
+<!--
+  XHTML 1.1 DTD
+  
+  This is XHTML, a reformulation of HTML as a modular XML application.
+  
+  The Extensible HyperText Markup Language (XHTML)
+  Copyright 1998-2008 World Wide Web Consortium
+     (Massachusetts Institute of Technology, European Research Consortium
+      for Informatics and Mathematics, Keio University).
+      All Rights Reserved.
+  
+  Permission to use, copy, modify and distribute the XHTML DTD and its 
+  accompanying documentation for any purpose and without fee is hereby 
+  granted in perpetuity, provided that the above copyright notice and 
+  this paragraph appear in all copies.  The copyright holders make no 
+  representation about the suitability of the DTD for any purpose.
+  
+  It is provided "as is" without expressed or implied warranty.
+  
+     Author:     Murray M. Altheim <altheim@eng.sun.com>
+     Revision:   $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $
+  
+-->
+<!--
+  This is the driver file for version 1.1 of the XHTML DTD.
+  
+  Please use this public identifier to identify it:
+  
+      "-//W3C//DTD XHTML 1.1//EN"
+-->
+<!--
+  Use this URI to identify the default namespace:
+  
+      "http://www.w3.org/1999/xhtml"
+  
+  See the Qualified Names module for information
+  on the use of namespace prefixes in the DTD.
+  
+      Note that XHTML namespace elements are not prefixed by default,
+      but the XHTML namespace prefix is defined as "xhtml" so that
+      other markup languages can extend this one and use the XHTML
+      prefixed global attributes if required.
+  
+-->
+<!--
+  Be sure to include prefixed global attributes - we don't need
+  them, but languages that extend XHTML 1.1 might.
+-->
+<!-- Reserved for use with the XLink namespace: -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <xs:import namespace="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="xsi.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <!--
+    For example, if you are using XHTML 1.1 directly, use the public
+    identifier in the DOCTYPE declaration, with the namespace declaration
+    on the document element to identify the default namespace:
+    
+      <?xml version="1.0"?>
+      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+                            "http://www.w3.org/MarkUp/DTD/xhtml11.dtd">
+      <html xmlns="http://www.w3.org/1999/xhtml"
+            xml:lang="en">
+      ...
+      </html>
+    
+    Revisions:
+    (none)
+  -->
+  <!-- reserved for future use with document profiles -->
+  <!-- ensure XHTML Notations are disabled -->
+  <!--
+    Bidirectional Text features
+    This feature-test entity is used to declare elements
+    and attributes used for bidirectional text support.
+  -->
+  <!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+  <!-- Pre-Framework Redeclaration placeholder  .................... -->
+  <!--
+    this serves as a location to insert markup declarations
+    into the DTD prior to the framework declarations.
+  -->
+  <!-- Inline Style Module  ........................................ -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Inline Style Module  ........................................... -->
+  <!--
+    file: xhtml-inlstyle-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ENTITIES XHTML Inline Style 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-inlstyle-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Inline Style
+    
+    This module declares the 'style' attribute, used to support inline
+    style markup. This module must be instantiated prior to the XHTML
+    Common Attributes module in order to be included in %Core.attrib;.
+  -->
+  <xs:attributeGroup name="style.attrib">
+    <xs:attribute name="style"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="Core.extra.attrib">
+    <xs:attributeGroup ref="xhtml:style.attrib"/>
+  </xs:attributeGroup>
+  <!-- end of xhtml-inlstyle-1.mod -->
+  <!-- declare Document Model module instantiated in framework -->
+  <!-- adding the lang attribute into the I18N collection -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Datatypes Module  .............................................. -->
+  <!--
+    file: xhtml-datatypes-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ENTITIES XHTML Datatypes 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-datatypes-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Datatypes
+    
+    defines containers for the following datatypes, many of
+    these imported from other specifications and standards.
+  -->
+  <!-- Length defined for cellpadding/cellspacing -->
+  <!-- nn for pixels or nn% for percentage length -->
+  <xs:simpleType name="Length.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- space-separated list of link types -->
+  <xs:simpleType name="LinkTypes.datatype">
+    <xs:restriction base="xs:NMTOKENS"/>
+  </xs:simpleType>
+  <!-- single or comma-separated list of media descriptors -->
+  <xs:simpleType name="MediaDesc.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- pixel, percentage, or relative -->
+  <xs:simpleType name="MultiLength.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- one or more digits (NUMBER) -->
+  <xs:simpleType name="Number.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- integer representing length in pixels -->
+  <xs:simpleType name="Pixels.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- script expression -->
+  <xs:simpleType name="Script.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- textual content -->
+  <xs:simpleType name="Text.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- Placeholder Compact URI-related types -->
+  <!-- Imported Datatypes ................................ -->
+  <!-- a single character from [ISO10646] -->
+  <xs:simpleType name="Character.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- a character encoding, as per [RFC2045] -->
+  <xs:simpleType name="Charset.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- a space separated list of character encodings, as per [RFC2045] -->
+  <xs:simpleType name="Charsets.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- Color specification using color name or sRGB (#RRGGBB) values -->
+  <!-- media type, as per [RFC2045] -->
+  <xs:simpleType name="ContentType.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- comma-separated list of media types, as per [RFC2045] -->
+  <xs:simpleType name="ContentTypes.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- date and time information. ISO date format -->
+  <xs:simpleType name="Datetime.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- formal public identifier, as per [ISO8879] -->
+  <xs:simpleType name="FPI.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- a language code, as per [RFC3066] or its successor -->
+  <xs:simpleType name="LanguageCode.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- a comma separated list of language code ranges -->
+  <!-- a qualified name , as per [XMLNS] or its successor -->
+  <!-- a Uniform Resource Identifier, see [URI] -->
+  <xs:simpleType name="URI.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- a space-separated list of Uniform Resource Identifiers, see [URI] -->
+  <xs:simpleType name="URIs.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- a relative URI reference consisting of an initial '#' and a fragment ID -->
+  <xs:simpleType name="URIREF.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- end of xhtml-datatypes-1.mod -->
+  <xs:attributeGroup name="lang.attrib">
+    <xs:attribute ref="xml:lang"/>
+    <xs:attribute name="lang" type="xhtml:LanguageCode.datatype"/>
+  </xs:attributeGroup>
+  <!-- Modular Framework Module (required) ......................... -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Modular Framework Module  ...................................... -->
+  <!--
+    file: xhtml-framework-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ENTITIES XHTML Modular Framework 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-framework-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Modular Framework
+    
+    This required module instantiates the modules needed
+    to support the XHTML modularization model, including:
+    
+       +  datatypes
+       +  namespace-qualified names
+       +  common attributes
+       +  document model
+       +  character entities
+    
+    The Intrinsic Events module is ignored by default but
+    occurs in this module because it must be instantiated
+    prior to Attributes but after Datatypes.
+  -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Datatypes Module  .............................................. -->
+  <!--
+    file: xhtml-datatypes-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ENTITIES XHTML Datatypes 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-datatypes-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Datatypes
+    
+    defines containers for the following datatypes, many of
+    these imported from other specifications and standards.
+  -->
+  <!-- Length defined for cellpadding/cellspacing -->
+  <!-- nn for pixels or nn% for percentage length -->
+  <!-- space-separated list of link types -->
+  <!-- single or comma-separated list of media descriptors -->
+  <!-- pixel, percentage, or relative -->
+  <!-- one or more digits (NUMBER) -->
+  <!-- integer representing length in pixels -->
+  <!-- script expression -->
+  <!-- textual content -->
+  <!-- Placeholder Compact URI-related types -->
+  <!-- Imported Datatypes ................................ -->
+  <!-- a single character from [ISO10646] -->
+  <!-- a character encoding, as per [RFC2045] -->
+  <!-- a space separated list of character encodings, as per [RFC2045] -->
+  <!-- Color specification using color name or sRGB (#RRGGBB) values -->
+  <!-- media type, as per [RFC2045] -->
+  <!-- comma-separated list of media types, as per [RFC2045] -->
+  <!-- date and time information. ISO date format -->
+  <!-- formal public identifier, as per [ISO8879] -->
+  <!-- a language code, as per [RFC3066] or its successor -->
+  <!-- a comma separated list of language code ranges -->
+  <!-- a qualified name , as per [XMLNS] or its successor -->
+  <!-- a Uniform Resource Identifier, see [URI] -->
+  <!-- a space-separated list of Uniform Resource Identifiers, see [URI] -->
+  <!-- a relative URI reference consisting of an initial '#' and a fragment ID -->
+  <!-- end of xhtml-datatypes-1.mod -->
+  <!-- placeholder for XLink support module -->
+  <!-- ....................................................................... -->
+  <!-- XHTML Qname Module  ................................................... -->
+  <!--
+    file: xhtml-qname-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ENTITIES XHTML Qualified Names 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-qname-1.mod"
+    
+    Revisions:
+          #2000-10-22: added qname declarations for ruby elements
+    .......................................................................
+  -->
+  <!--
+    XHTML Qname (Qualified Name) Module
+    
+    This module is contained in two parts, labeled Section 'A' and 'B':
+    
+      Section A declares parameter entities to support namespace-
+      qualified names, namespace declarations, and name prefixing
+      for XHTML and extensions.
+    
+      Section B declares parameter entities used to provide
+      namespace-qualified names for all XHTML element types:
+    
+        %applet.qname;   the xmlns-qualified name for <applet>
+        %base.qname;     the xmlns-qualified name for <base>
+        ...
+    
+    XHTML extensions would create a module similar to this one.
+    Included in the XHTML distribution is a template module
+    ('template-qname-1.mod') suitable for this purpose.
+  -->
+  <!-- Section A: XHTML XML Namespace Framework :::::::::::::::::::: -->
+  <!--
+    1. Declare a %XHTML.prefixed; conditional section keyword, used
+    to activate namespace prefixing. The default value should
+    inherit '%NS.prefixed;' from the DTD driver, so that unless
+    overridden, the default behaviour follows the overall DTD
+    prefixing scheme.
+  -->
+  <!--
+    By default, we always permit XHTML attribute collections to have
+    namespace-qualified prefixes as well.
+  -->
+  <!--
+    By default, we allow the XML Schema attributes on the root
+    element.
+  -->
+  <!--
+    2. Declare a parameter entity (eg., %XHTML.xmlns;) containing
+    the URI reference used to identify the XHTML namespace:
+  -->
+  <!--
+    3. Declare parameter entities (eg., %XHTML.prefix;) containing
+       the default namespace prefix string(s) to use when prefixing
+       is enabled. This may be overridden in the DTD driver or the
+       internal subset of an document instance. If no default prefix
+       is desired, this may be declared as an empty string.
+    
+    NOTE: As specified in [XMLNAMES], the namespace prefix serves
+    as a proxy for the URI reference, and is not in itself significant.
+  -->
+  <!--
+    4. Declare parameter entities (eg., %XHTML.pfx;) containing the
+    colonized prefix(es) (eg., '%XHTML.prefix;:') used when
+    prefixing is active, an empty string when it is not.
+  -->
+  <!-- declare qualified name extensions here ............ -->
+  <!--
+    5. The parameter entity %XHTML.xmlns.extra.attrib; may be
+    redeclared to contain any non-XHTML namespace declaration
+    attributes for namespaces embedded in XHTML. The default
+    is an empty string.  XLink should be included here if used
+    in the DTD.
+  -->
+  <!-- The remainder of Section A is only followed in XHTML, not extensions. -->
+  <!--
+    Declare a parameter entity %NS.decl.attrib; containing
+    all XML Namespace declarations used in the DTD, plus the
+    xmlns declaration for XHTML, its form dependent on whether
+    prefixing is active.
+  -->
+  <!--
+    Declare a parameter entity %XSI.prefix as a prefix to use for XML
+    Schema Instance attributes.
+  -->
+  <!--
+    Declare a parameter entity %XSI.xmlns.attrib as support for the
+    schemaLocation attribute, since this is legal throughout the DTD.
+  -->
+  <!-- This is a placeholder for future XLink support. -->
+  <!--
+    This is the attribute for the XML Schema namespace - XHTML
+    Modularization is also expressed in XML Schema, and it needs to
+        be legal to declare the XML Schema namespace and the
+        schemaLocation attribute on the root element of XHTML family
+        documents.
+  -->
+  <!--
+    Declare a parameter entity %NS.decl.attrib; containing all
+    XML namespace declaration attributes used by XHTML, including
+    a default xmlns attribute when prefixing is inactive.
+  -->
+  <!-- placeholder for qualified name redeclarations -->
+  <!-- Section B: XHTML Qualified Names ::::::::::::::::::::::::::::: -->
+  <!--
+    6. This section declares parameter entities used to provide
+    namespace-qualified names for all XHTML element types.
+  -->
+  <!-- module:  xhtml-applet-1.mod -->
+  <!-- module:  xhtml-base-1.mod -->
+  <!-- module:  xhtml-bdo-1.mod -->
+  <!-- module:  xhtml-blkphras-1.mod -->
+  <!-- module:  xhtml-blkpres-1.mod -->
+  <!-- module:  xhtml-blkstruct-1.mod -->
+  <!-- module:  xhtml-edit-1.mod -->
+  <!-- module:  xhtml-form-1.mod -->
+  <!-- module:  xhtml-hypertext-1.mod -->
+  <!-- module:  xhtml-image-1.mod -->
+  <!-- module:  xhtml-inlphras-1.mod -->
+  <!-- module:  xhtml-inlpres-1.mod -->
+  <!-- module:  xhtml-inlstruct-1.mod -->
+  <!-- module:  xhtml-ismap-1.mod (also csismap, ssismap) -->
+  <!-- module:  xhtml-link-1.mod -->
+  <!-- module:  xhtml-list-1.mod -->
+  <!-- module:  xhtml-meta-1.mod -->
+  <!-- module:  xhtml-param-1.mod -->
+  <!-- module:  xhtml-object-1.mod -->
+  <!-- module:  xhtml-script-1.mod -->
+  <!-- module:  xhtml-struct-1.mod -->
+  <!-- module:  xhtml-style-1.mod -->
+  <!-- module:  xhtml-table-1.mod -->
+  <!-- module:  xhtml-ruby-1.mod -->
+  <!-- Provisional XHTML 2.0 Qualified Names  ...................... -->
+  <!-- module:  xhtml-image-2.mod -->
+  <!-- end of xhtml-qname-1.mod -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Intrinsic Events Module  ....................................... -->
+  <!--
+    file: xhtml-events-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ENTITIES XHTML Intrinsic Events 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-events-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Intrinsic Event Attributes
+    
+     These are the event attributes defined in HTML 4,
+     Section 18.2.3 "Intrinsic Events". This module must be
+     instantiated prior to the Attributes Module but after
+     the Datatype Module in the Modular Framework module.
+    
+    "Note: Authors of HTML documents are advised that changes
+     are likely to occur in the realm of intrinsic events
+     (e.g., how scripts are bound to events). Research in
+     this realm is carried on by members of the W3C Document
+     Object Model Working Group (see the W3C Web site at
+     http://www.w3.org/ for more information)."
+  -->
+  <!--
+    NOTE: Because the ATTLIST declarations in this module occur
+    before their respective ELEMENT declarations in other
+    modules, there may be a dependency on this module that
+    should be considered if any of the parameter entities used
+    for element type names (eg., %a.qname;) are redeclared.
+  -->
+  <xs:attributeGroup name="Events.attrib">
+    <xs:attribute name="onclick" type="xhtml:Script.datatype"/>
+    <xs:attribute name="ondblclick" type="xhtml:Script.datatype"/>
+    <xs:attribute name="onmousedown" type="xhtml:Script.datatype"/>
+    <xs:attribute name="onmouseup" type="xhtml:Script.datatype"/>
+    <xs:attribute name="onmouseover" type="xhtml:Script.datatype"/>
+    <xs:attribute name="onmousemove" type="xhtml:Script.datatype"/>
+    <xs:attribute name="onmouseout" type="xhtml:Script.datatype"/>
+    <xs:attribute name="onkeypress" type="xhtml:Script.datatype"/>
+    <xs:attribute name="onkeydown" type="xhtml:Script.datatype"/>
+    <xs:attribute name="onkeyup" type="xhtml:Script.datatype"/>
+  </xs:attributeGroup>
+  <!-- additional attributes on anchor element -->
+  <!-- additional attributes on form element -->
+  <!-- additional attributes on label element -->
+  <!-- additional attributes on input element -->
+  <!-- additional attributes on select element -->
+  <!-- additional attributes on textarea element -->
+  <!-- additional attributes on button element -->
+  <!-- additional attributes on body element -->
+  <!-- additional attributes on area element -->
+  <!-- end of xhtml-events-1.mod -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Common Attributes Module  ...................................... -->
+  <!--
+    file: xhtml-attribs-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ENTITIES XHTML Common Attributes 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-attribs-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Common Attributes
+    
+    This module declares many of the common attributes for the XHTML DTD.
+    %NS.decl.attrib; is declared in the XHTML Qname module.
+    
+        Note that this file was extended in XHTML Modularization 1.1 to 
+        include declarations of "global" versions of the attribute collections.
+        The global versions of the attributes are for use on elements in other 
+        namespaces.  The global version of "common" includes the xmlns declaration
+        for the prefixed version of the xhtml namespace.  If you are only using a
+        specific attribute or an individual attribute collection, you must also
+        include the XHTML.xmlns.attrib.prefixed PE on your elements.
+  -->
+  <xs:attributeGroup name="id.attrib">
+    <xs:attribute name="id" type="xs:ID"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="class.attrib">
+    <xs:attribute name="class"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="title.attrib">
+    <xs:attribute name="title" type="xhtml:Text.datatype"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="Core.attrib">
+    <xs:attributeGroup ref="xhtml:id.attrib"/>
+    <xs:attributeGroup ref="xhtml:class.attrib"/>
+    <xs:attributeGroup ref="xhtml:title.attrib"/>
+    <xs:attribute ref="xml:space" default="preserve"/>
+    <xs:attributeGroup ref="xhtml:Core.extra.attrib"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="dir.attrib">
+    <xs:attribute name="dir">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="ltr"/>
+          <xs:enumeration value="rtl"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="I18n.attrib">
+    <xs:attributeGroup ref="xhtml:dir.attrib"/>
+    <xs:attributeGroup ref="xhtml:lang.attrib"/>
+  </xs:attributeGroup>
+  <!-- intrinsic event attributes declared previously -->
+  <xs:attributeGroup name="Common.attrib">
+    <xs:attributeGroup ref="xhtml:Core.attrib"/>
+    <xs:attributeGroup ref="xhtml:I18n.attrib"/>
+    <xs:attributeGroup ref="xhtml:Events.attrib"/>
+  </xs:attributeGroup>
+  <!-- end of xhtml-attribs-1.mod -->
+  <!-- placeholder for content model redeclarations -->
+  <!-- instantiate the Document Model module declared in the DTD driver -->
+  <!-- ....................................................................... -->
+  <!-- XHTML 1.1 Document Model Module  ...................................... -->
+  <!--
+    file: xhtml11-model-1.mod
+    
+    This is XHTML 1.1, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2008 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ENTITIES XHTML 1.1 Document Model 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml11-model-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    XHTML 1.1 Document Model
+    
+    This module describes the groupings of elements that make up
+    common content models for XHTML elements.
+    
+    XHTML has three basic content models:
+    
+        %Inline.mix;  character-level elements
+        %Block.mix;   block-like elements, eg., paragraphs and lists
+        %Flow.mix;    any block or inline elements
+    
+    Any parameter entities declared in this module may be used
+    to create element content models, but the above three are
+    considered 'global' (insofar as that term applies here).
+    
+    The reserved word '#PCDATA' (indicating a text string) is now
+    included explicitly with each element declaration that is
+    declared as mixed content, as XML requires that this token
+    occur first in a content model specification.
+  -->
+  <!--
+    Extending the Model
+    
+    While in some cases this module may need to be rewritten to
+    accommodate changes to the document model, minor extensions
+    may be accomplished by redeclaring any of the three *.extra;
+    parameter entities to contain extension element types as follows:
+    
+        %Misc.extra;    whose parent may be any block or
+                        inline element.
+    
+        %Inline.extra;  whose parent may be any inline element.
+    
+        %Block.extra;   whose parent may be any block element.
+    
+    If used, these parameter entities must be an OR-separated
+    list beginning with an OR separator ("|"), eg., "| a | b | c"
+    
+    All block and inline *.class parameter entities not part
+    of the *struct.class classes begin with "| " to allow for
+    exclusion from mixes.
+  -->
+  <!-- ..............  Optional Elements in head  .................. -->
+  <xs:group name="HeadOpts.mix">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="xhtml:script"/>
+        <xs:element ref="xhtml:style"/>
+        <xs:element ref="xhtml:meta"/>
+        <xs:element ref="xhtml:link"/>
+        <xs:element ref="xhtml:object"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+  <!-- .................  Miscellaneous Elements  .................. -->
+  <!-- ins and del are used to denote editing changes -->
+  <xs:element name="Edit.class" abstract="true" substitutionGroup="xhtml:Misc.class"/>
+  <!--
+    script and noscript are used to contain scripts
+    and alternative content
+  -->
+  <xs:element name="Script.class" abstract="true" substitutionGroup="xhtml:Misc.class"/>
+  <!--
+    These elements are neither block nor inline, and can
+    essentially be used anywhere in the document body.
+  -->
+  <xs:element name="Misc.class" abstract="true"/>
+  <!-- ....................  Inline Elements  ...................... -->
+  <xs:element name="InlStruct.class" abstract="true"/>
+  <xs:element name="InlPhras.class" abstract="true"/>
+  <xs:element name="InlPres.class" abstract="true"/>
+  <xs:element name="I18n.class" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:bdo.content">
+          <xs:attributeGroup ref="xhtml:Core.attrib"/>
+          <xs:attributeGroup ref="xhtml:lang.attrib"/>
+          <xs:attribute name="dir" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="ltr"/>
+                <xs:enumeration value="rtl"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Anchor.class" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:a.content">
+          <xs:attribute name="onfocus" type="xhtml:Script.datatype"/>
+          <xs:attribute name="onblur" type="xhtml:Script.datatype"/>
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="href" type="xhtml:URI.datatype"/>
+          <xs:attribute name="charset" type="xhtml:Charset.datatype"/>
+          <xs:attribute name="type" type="xhtml:ContentType.datatype"/>
+          <xs:attribute name="hreflang" type="xhtml:LanguageCode.datatype"/>
+          <xs:attribute name="rel" type="xhtml:LinkTypes.datatype"/>
+          <xs:attribute name="rev" type="xhtml:LinkTypes.datatype"/>
+          <xs:attribute name="accesskey" type="xhtml:Character.datatype"/>
+          <xs:attribute name="tabindex" type="xhtml:Number.datatype"/>
+          <xs:attribute name="shape" default="rect" type="xhtml:Shape.datatype"/>
+          <xs:attribute name="coords" type="xhtml:Coords.datatype"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InlSpecial.class" abstract="true"/>
+  <xs:element name="InlForm.class" abstract="true"/>
+  <xs:element name="Ruby.class" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:ruby.content">
+          <xs:attributeGroup ref="xhtml:Ruby.common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!--
+    %Inline.class; includes all inline elements,
+    used as a component in mixes
+  -->
+  <xs:group name="Inline.class">
+    <xs:choice>
+      <xs:element ref="xhtml:InlStruct.class"/>
+      <xs:element ref="xhtml:InlPhras.class"/>
+      <xs:element ref="xhtml:InlPres.class"/>
+      <xs:element ref="xhtml:I18n.class"/>
+      <xs:element ref="xhtml:Anchor.class"/>
+      <xs:element ref="xhtml:InlSpecial.class"/>
+      <xs:element ref="xhtml:InlForm.class"/>
+      <xs:element ref="xhtml:Ruby.class"/>
+    </xs:choice>
+  </xs:group>
+  <!--
+    %InlNoRuby.class; includes all inline elements
+    except ruby, used as a component in mixes
+  -->
+  <xs:group name="InlNoRuby.class">
+    <xs:choice>
+      <xs:element ref="xhtml:InlStruct.class"/>
+      <xs:element ref="xhtml:InlPhras.class"/>
+      <xs:element ref="xhtml:InlPres.class"/>
+      <xs:element ref="xhtml:I18n.class"/>
+      <xs:element ref="xhtml:Anchor.class"/>
+      <xs:element ref="xhtml:InlSpecial.class"/>
+      <xs:element ref="xhtml:InlForm.class"/>
+    </xs:choice>
+  </xs:group>
+  <!-- %NoRuby.content; includes all inlines except ruby -->
+  <xs:complexType name="NoRuby.content" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="xhtml:InlNoRuby.class"/>
+      <xs:element ref="xhtml:Misc.class"/>
+    </xs:choice>
+  </xs:complexType>
+  <!--
+    %InlNoAnchor.class; includes all non-anchor inlines,
+    used as a component in mixes
+  -->
+  <xs:group name="InlNoAnchor.class">
+    <xs:choice>
+      <xs:element ref="xhtml:InlStruct.class"/>
+      <xs:element ref="xhtml:InlPhras.class"/>
+      <xs:element ref="xhtml:InlPres.class"/>
+      <xs:element ref="xhtml:I18n.class"/>
+      <xs:element ref="xhtml:InlSpecial.class"/>
+      <xs:element ref="xhtml:InlForm.class"/>
+      <xs:element ref="xhtml:Ruby.class"/>
+    </xs:choice>
+  </xs:group>
+  <!-- %InlNoAnchor.mix; includes all non-anchor inlines -->
+  <xs:group name="InlNoAnchor.mix">
+    <xs:choice>
+      <xs:group ref="xhtml:InlNoAnchor.class"/>
+      <xs:element ref="xhtml:Misc.class"/>
+    </xs:choice>
+  </xs:group>
+  <!-- %Inline.mix; includes all inline elements, including %Misc.class; -->
+  <xs:group name="Inline.mix">
+    <xs:choice>
+      <xs:group ref="xhtml:Inline.class"/>
+      <xs:element ref="xhtml:Misc.class"/>
+    </xs:choice>
+  </xs:group>
+  <!-- .....................  Block Elements  ...................... -->
+  <!--
+    In the HTML 4.0 DTD, heading and list elements were included
+    in the %block; parameter entity. The %Heading.class; and
+    %List.class; parameter entities must now be included explicitly
+    on element declarations where desired.
+  -->
+  <xs:element name="Heading.class" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:Heading.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="List.class" abstract="true"/>
+  <xs:element name="Table.class" abstract="true" substitutionGroup="xhtml:BlkSpecial.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:table.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="summary" type="xhtml:Text.datatype"/>
+          <xs:attribute name="width" type="xhtml:Length.datatype"/>
+          <xs:attribute name="border" type="xhtml:Pixels.datatype"/>
+          <xs:attributeGroup ref="xhtml:frame.attrib"/>
+          <xs:attributeGroup ref="xhtml:rules.attrib"/>
+          <xs:attribute name="cellspacing" type="xhtml:Length.datatype"/>
+          <xs:attribute name="cellpadding" type="xhtml:Length.datatype"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Form.class" abstract="true" substitutionGroup="xhtml:BlkSpecial.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:form.content">
+          <xs:attribute name="onsubmit" type="xhtml:Script.datatype"/>
+          <xs:attribute name="onreset" type="xhtml:Script.datatype"/>
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="action" use="required" type="xhtml:URI.datatype"/>
+          <xs:attribute name="method" default="get">
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="get"/>
+                <xs:enumeration value="post"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="name"/>
+          <xs:attribute name="enctype" default="application/x-www-form-urlencoded" type="xhtml:ContentType.datatype"/>
+          <xs:attribute name="accept-charset" type="xhtml:Charsets.datatype"/>
+          <xs:attribute name="accept" type="xhtml:ContentTypes.datatype"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Fieldset.class" abstract="true" substitutionGroup="xhtml:BlkSpecial.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:fieldset.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BlkStruct.class" abstract="true"/>
+  <xs:element name="BlkPhras.class" abstract="true"/>
+  <xs:element name="BlkPres.class" abstract="true">
+    <xs:complexType>
+      <xs:attributeGroup ref="xhtml:Common.attrib"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BlkSpecial.class" abstract="true"/>
+  <!--
+    %Block.class; includes all block elements,
+    used as an component in mixes
+  -->
+  <xs:group name="Block.class">
+    <xs:choice>
+      <xs:element ref="xhtml:BlkStruct.class"/>
+      <xs:element ref="xhtml:BlkPhras.class"/>
+      <xs:element ref="xhtml:BlkPres.class"/>
+      <xs:element ref="xhtml:BlkSpecial.class"/>
+    </xs:choice>
+  </xs:group>
+  <!-- %Block.mix; includes all block elements plus %Misc.class; -->
+  <xs:group name="Block.mix">
+    <xs:choice>
+      <xs:element ref="xhtml:Heading.class"/>
+      <xs:element ref="xhtml:List.class"/>
+      <xs:group ref="xhtml:Block.class"/>
+      <xs:element ref="xhtml:Misc.class"/>
+    </xs:choice>
+  </xs:group>
+  <!-- ................  All Content Elements  .................. -->
+  <!-- %Flow.mix; includes all text content, block and inline -->
+  <xs:group name="Flow.mix">
+    <xs:choice>
+      <xs:element ref="xhtml:Heading.class"/>
+      <xs:element ref="xhtml:List.class"/>
+      <xs:group ref="xhtml:Block.class"/>
+      <xs:group ref="xhtml:Inline.class"/>
+      <xs:element ref="xhtml:Misc.class"/>
+    </xs:choice>
+  </xs:group>
+  <!-- end of xhtml11-model-1.mod -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Character Entities Module  ......................................... -->
+  <!--
+    file: xhtml-charent-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ENTITIES XHTML Character Entities 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-charent-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Character Entities for XHTML
+    
+    This module declares the set of character entities for XHTML,
+    including the Latin 1, Symbol and Special character collections.
+  -->
+  <!--
+    Portions (C) International Organization for Standardization 1986
+    Permission to copy in any form is granted for use with
+    conforming SGML systems and applications as defined in
+    ISO 8879, provided this notice is included in all copies.
+  -->
+  <!--
+    Character entity set. Typical invocation:
+    <!ENTITY % HTMLlat1 PUBLIC
+       "-//W3C//ENTITIES Latin 1 for XHTML//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent">
+    %HTMLlat1;
+  -->
+  <!--
+    no-break space = non-breaking space,
+    U+00A0 ISOnum
+  -->
+  <!-- inverted exclamation mark, U+00A1 ISOnum -->
+  <!-- cent sign, U+00A2 ISOnum -->
+  <!-- pound sign, U+00A3 ISOnum -->
+  <!-- currency sign, U+00A4 ISOnum -->
+  <!-- yen sign = yuan sign, U+00A5 ISOnum -->
+  <!--
+    broken bar = broken vertical bar,
+    U+00A6 ISOnum
+  -->
+  <!-- section sign, U+00A7 ISOnum -->
+  <!--
+    diaeresis = spacing diaeresis,
+    U+00A8 ISOdia
+  -->
+  <!-- copyright sign, U+00A9 ISOnum -->
+  <!-- feminine ordinal indicator, U+00AA ISOnum -->
+  <!--
+    left-pointing double angle quotation mark
+    = left pointing guillemet, U+00AB ISOnum
+  -->
+  <!--
+    not sign = angled dash,
+    U+00AC ISOnum
+  -->
+  <!--
+    soft hyphen = discretionary hyphen,
+    U+00AD ISOnum
+  -->
+  <!--
+    registered sign = registered trade mark sign,
+    U+00AE ISOnum
+  -->
+  <!--
+    macron = spacing macron = overline
+    = APL overbar, U+00AF ISOdia
+  -->
+  <!-- degree sign, U+00B0 ISOnum -->
+  <!--
+    plus-minus sign = plus-or-minus sign,
+    U+00B1 ISOnum
+  -->
+  <!--
+    superscript two = superscript digit two
+    = squared, U+00B2 ISOnum
+  -->
+  <!--
+    superscript three = superscript digit three
+    = cubed, U+00B3 ISOnum
+  -->
+  <!--
+    acute accent = spacing acute,
+    U+00B4 ISOdia
+  -->
+  <!-- micro sign, U+00B5 ISOnum -->
+  <!--
+    pilcrow sign = paragraph sign,
+    U+00B6 ISOnum
+  -->
+  <!--
+    middle dot = Georgian comma
+    = Greek middle dot, U+00B7 ISOnum
+  -->
+  <!-- cedilla = spacing cedilla, U+00B8 ISOdia -->
+  <!--
+    superscript one = superscript digit one,
+    U+00B9 ISOnum
+  -->
+  <!--
+    masculine ordinal indicator,
+    U+00BA ISOnum
+  -->
+  <!--
+    right-pointing double angle quotation mark
+    = right pointing guillemet, U+00BB ISOnum
+  -->
+  <!--
+    vulgar fraction one quarter
+    = fraction one quarter, U+00BC ISOnum
+  -->
+  <!--
+    vulgar fraction one half
+    = fraction one half, U+00BD ISOnum
+  -->
+  <!--
+    vulgar fraction three quarters
+    = fraction three quarters, U+00BE ISOnum
+  -->
+  <!--
+    inverted question mark
+    = turned question mark, U+00BF ISOnum
+  -->
+  <!--
+    latin capital letter A with grave
+    = latin capital letter A grave,
+    U+00C0 ISOlat1
+  -->
+  <!--
+    latin capital letter A with acute,
+    U+00C1 ISOlat1
+  -->
+  <!--
+    latin capital letter A with circumflex,
+    U+00C2 ISOlat1
+  -->
+  <!--
+    latin capital letter A with tilde,
+    U+00C3 ISOlat1
+  -->
+  <!--
+    latin capital letter A with diaeresis,
+    U+00C4 ISOlat1
+  -->
+  <!--
+    latin capital letter A with ring above
+    = latin capital letter A ring,
+    U+00C5 ISOlat1
+  -->
+  <!--
+    latin capital letter AE
+    = latin capital ligature AE,
+    U+00C6 ISOlat1
+  -->
+  <!--
+    latin capital letter C with cedilla,
+    U+00C7 ISOlat1
+  -->
+  <!--
+    latin capital letter E with grave,
+    U+00C8 ISOlat1
+  -->
+  <!--
+    latin capital letter E with acute,
+    U+00C9 ISOlat1
+  -->
+  <!--
+    latin capital letter E with circumflex,
+    U+00CA ISOlat1
+  -->
+  <!--
+    latin capital letter E with diaeresis,
+    U+00CB ISOlat1
+  -->
+  <!--
+    latin capital letter I with grave,
+    U+00CC ISOlat1
+  -->
+  <!--
+    latin capital letter I with acute,
+    U+00CD ISOlat1
+  -->
+  <!--
+    latin capital letter I with circumflex,
+    U+00CE ISOlat1
+  -->
+  <!--
+    latin capital letter I with diaeresis,
+    U+00CF ISOlat1
+  -->
+  <!-- latin capital letter ETH, U+00D0 ISOlat1 -->
+  <!--
+    latin capital letter N with tilde,
+    U+00D1 ISOlat1
+  -->
+  <!--
+    latin capital letter O with grave,
+    U+00D2 ISOlat1
+  -->
+  <!--
+    latin capital letter O with acute,
+    U+00D3 ISOlat1
+  -->
+  <!--
+    latin capital letter O with circumflex,
+    U+00D4 ISOlat1
+  -->
+  <!--
+    latin capital letter O with tilde,
+    U+00D5 ISOlat1
+  -->
+  <!--
+    latin capital letter O with diaeresis,
+    U+00D6 ISOlat1
+  -->
+  <!-- multiplication sign, U+00D7 ISOnum -->
+  <!--
+    latin capital letter O with stroke
+    = latin capital letter O slash,
+    U+00D8 ISOlat1
+  -->
+  <!--
+    latin capital letter U with grave,
+    U+00D9 ISOlat1
+  -->
+  <!--
+    latin capital letter U with acute,
+    U+00DA ISOlat1
+  -->
+  <!--
+    latin capital letter U with circumflex,
+    U+00DB ISOlat1
+  -->
+  <!--
+    latin capital letter U with diaeresis,
+    U+00DC ISOlat1
+  -->
+  <!--
+    latin capital letter Y with acute,
+    U+00DD ISOlat1
+  -->
+  <!--
+    latin capital letter THORN,
+    U+00DE ISOlat1
+  -->
+  <!--
+    latin small letter sharp s = ess-zed,
+    U+00DF ISOlat1
+  -->
+  <!--
+    latin small letter a with grave
+    = latin small letter a grave,
+    U+00E0 ISOlat1
+  -->
+  <!--
+    latin small letter a with acute,
+    U+00E1 ISOlat1
+  -->
+  <!--
+    latin small letter a with circumflex,
+    U+00E2 ISOlat1
+  -->
+  <!--
+    latin small letter a with tilde,
+    U+00E3 ISOlat1
+  -->
+  <!--
+    latin small letter a with diaeresis,
+    U+00E4 ISOlat1
+  -->
+  <!--
+    latin small letter a with ring above
+    = latin small letter a ring,
+    U+00E5 ISOlat1
+  -->
+  <!--
+    latin small letter ae
+    = latin small ligature ae, U+00E6 ISOlat1
+  -->
+  <!--
+    latin small letter c with cedilla,
+    U+00E7 ISOlat1
+  -->
+  <!--
+    latin small letter e with grave,
+    U+00E8 ISOlat1
+  -->
+  <!--
+    latin small letter e with acute,
+    U+00E9 ISOlat1
+  -->
+  <!--
+    latin small letter e with circumflex,
+    U+00EA ISOlat1
+  -->
+  <!--
+    latin small letter e with diaeresis,
+    U+00EB ISOlat1
+  -->
+  <!--
+    latin small letter i with grave,
+    U+00EC ISOlat1
+  -->
+  <!--
+    latin small letter i with acute,
+    U+00ED ISOlat1
+  -->
+  <!--
+    latin small letter i with circumflex,
+    U+00EE ISOlat1
+  -->
+  <!--
+    latin small letter i with diaeresis,
+    U+00EF ISOlat1
+  -->
+  <!-- latin small letter eth, U+00F0 ISOlat1 -->
+  <!--
+    latin small letter n with tilde,
+    U+00F1 ISOlat1
+  -->
+  <!--
+    latin small letter o with grave,
+    U+00F2 ISOlat1
+  -->
+  <!--
+    latin small letter o with acute,
+    U+00F3 ISOlat1
+  -->
+  <!--
+    latin small letter o with circumflex,
+    U+00F4 ISOlat1
+  -->
+  <!--
+    latin small letter o with tilde,
+    U+00F5 ISOlat1
+  -->
+  <!--
+    latin small letter o with diaeresis,
+    U+00F6 ISOlat1
+  -->
+  <!-- division sign, U+00F7 ISOnum -->
+  <!--
+    latin small letter o with stroke,
+    = latin small letter o slash,
+    U+00F8 ISOlat1
+  -->
+  <!--
+    latin small letter u with grave,
+    U+00F9 ISOlat1
+  -->
+  <!--
+    latin small letter u with acute,
+    U+00FA ISOlat1
+  -->
+  <!--
+    latin small letter u with circumflex,
+    U+00FB ISOlat1
+  -->
+  <!--
+    latin small letter u with diaeresis,
+    U+00FC ISOlat1
+  -->
+  <!--
+    latin small letter y with acute,
+    U+00FD ISOlat1
+  -->
+  <!--
+    latin small letter thorn,
+    U+00FE ISOlat1
+  -->
+  <!--
+    latin small letter y with diaeresis,
+    U+00FF ISOlat1
+  -->
+  <!-- Mathematical, Greek and Symbolic characters for XHTML -->
+  <!--
+    Character entity set. Typical invocation:
+    <!ENTITY % HTMLsymbol PUBLIC
+       "-//W3C//ENTITIES Symbols for XHTML//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent">
+    %HTMLsymbol;
+  -->
+  <!--
+    Portions (C) International Organization for Standardization 1986:
+    Permission to copy in any form is granted for use with
+    conforming SGML systems and applications as defined in
+    ISO 8879, provided this notice is included in all copies.
+  -->
+  <!--
+    Relevant ISO entity set is given unless names are newly introduced.
+    New names (i.e., not in ISO 8879 list) do not clash with any
+    existing ISO 8879 entity names. ISO 10646 character numbers
+    are given for each character, in hex. values are decimal
+    conversions of the ISO 10646 values and refer to the document
+    character set. Names are Unicode names. 
+  -->
+  <!-- Latin Extended-B -->
+  <!--
+    latin small letter f with hook = function
+    = florin, U+0192 ISOtech
+  -->
+  <!-- Greek -->
+  <!-- greek capital letter alpha, U+0391 -->
+  <!-- greek capital letter beta, U+0392 -->
+  <!--
+    greek capital letter gamma,
+    U+0393 ISOgrk3
+  -->
+  <!--
+    greek capital letter delta,
+    U+0394 ISOgrk3
+  -->
+  <!-- greek capital letter epsilon, U+0395 -->
+  <!-- greek capital letter zeta, U+0396 -->
+  <!-- greek capital letter eta, U+0397 -->
+  <!--
+    greek capital letter theta,
+    U+0398 ISOgrk3
+  -->
+  <!-- greek capital letter iota, U+0399 -->
+  <!-- greek capital letter kappa, U+039A -->
+  <!--
+    greek capital letter lamda,
+    U+039B ISOgrk3
+  -->
+  <!-- greek capital letter mu, U+039C -->
+  <!-- greek capital letter nu, U+039D -->
+  <!-- greek capital letter xi, U+039E ISOgrk3 -->
+  <!-- greek capital letter omicron, U+039F -->
+  <!-- greek capital letter pi, U+03A0 ISOgrk3 -->
+  <!-- greek capital letter rho, U+03A1 -->
+  <!-- there is no Sigmaf, and no U+03A2 character either -->
+  <!--
+    greek capital letter sigma,
+    U+03A3 ISOgrk3
+  -->
+  <!-- greek capital letter tau, U+03A4 -->
+  <!--
+    greek capital letter upsilon,
+    U+03A5 ISOgrk3
+  -->
+  <!--
+    greek capital letter phi,
+    U+03A6 ISOgrk3
+  -->
+  <!-- greek capital letter chi, U+03A7 -->
+  <!--
+    greek capital letter psi,
+    U+03A8 ISOgrk3
+  -->
+  <!--
+    greek capital letter omega,
+    U+03A9 ISOgrk3
+  -->
+  <!--
+    greek small letter alpha,
+    U+03B1 ISOgrk3
+  -->
+  <!-- greek small letter beta, U+03B2 ISOgrk3 -->
+  <!--
+    greek small letter gamma,
+    U+03B3 ISOgrk3
+  -->
+  <!--
+    greek small letter delta,
+    U+03B4 ISOgrk3
+  -->
+  <!--
+    greek small letter epsilon,
+    U+03B5 ISOgrk3
+  -->
+  <!-- greek small letter zeta, U+03B6 ISOgrk3 -->
+  <!-- greek small letter eta, U+03B7 ISOgrk3 -->
+  <!--
+    greek small letter theta,
+    U+03B8 ISOgrk3
+  -->
+  <!-- greek small letter iota, U+03B9 ISOgrk3 -->
+  <!--
+    greek small letter kappa,
+    U+03BA ISOgrk3
+  -->
+  <!--
+    greek small letter lamda,
+    U+03BB ISOgrk3
+  -->
+  <!-- greek small letter mu, U+03BC ISOgrk3 -->
+  <!-- greek small letter nu, U+03BD ISOgrk3 -->
+  <!-- greek small letter xi, U+03BE ISOgrk3 -->
+  <!-- greek small letter omicron, U+03BF NEW -->
+  <!-- greek small letter pi, U+03C0 ISOgrk3 -->
+  <!-- greek small letter rho, U+03C1 ISOgrk3 -->
+  <!--
+    greek small letter final sigma,
+    U+03C2 ISOgrk3
+  -->
+  <!--
+    greek small letter sigma,
+    U+03C3 ISOgrk3
+  -->
+  <!-- greek small letter tau, U+03C4 ISOgrk3 -->
+  <!--
+    greek small letter upsilon,
+    U+03C5 ISOgrk3
+  -->
+  <!-- greek small letter phi, U+03C6 ISOgrk3 -->
+  <!-- greek small letter chi, U+03C7 ISOgrk3 -->
+  <!-- greek small letter psi, U+03C8 ISOgrk3 -->
+  <!--
+    greek small letter omega,
+    U+03C9 ISOgrk3
+  -->
+  <!--
+    greek theta symbol,
+    U+03D1 NEW
+  -->
+  <!--
+    greek upsilon with hook symbol,
+    U+03D2 NEW
+  -->
+  <!-- greek pi symbol, U+03D6 ISOgrk3 -->
+  <!-- General Punctuation -->
+  <!--
+    bullet = black small circle,
+    U+2022 ISOpub
+  -->
+  <!-- bullet is NOT the same as bullet operator, U+2219 -->
+  <!--
+    horizontal ellipsis = three dot leader,
+    U+2026 ISOpub
+  -->
+  <!-- prime = minutes = feet, U+2032 ISOtech -->
+  <!--
+    double prime = seconds = inches,
+    U+2033 ISOtech
+  -->
+  <!--
+    overline = spacing overscore,
+    U+203E NEW
+  -->
+  <!-- fraction slash, U+2044 NEW -->
+  <!-- Letterlike Symbols -->
+  <!--
+    script capital P = power set
+    = Weierstrass p, U+2118 ISOamso
+  -->
+  <!--
+    black-letter capital I = imaginary part,
+    U+2111 ISOamso
+  -->
+  <!--
+    black-letter capital R = real part symbol,
+    U+211C ISOamso
+  -->
+  <!-- trade mark sign, U+2122 ISOnum -->
+  <!--
+    alef symbol = first transfinite cardinal,
+    U+2135 NEW
+  -->
+  <!--
+    alef symbol is NOT the same as hebrew letter alef,
+    U+05D0 although the same glyph could be used to depict both characters
+  -->
+  <!-- Arrows -->
+  <!-- leftwards arrow, U+2190 ISOnum -->
+  <!--  upwards arrow, U+2191 ISOnum -->
+  <!-- rightwards arrow, U+2192 ISOnum -->
+  <!-- downwards arrow, U+2193 ISOnum -->
+  <!-- left right arrow, U+2194 ISOamsa -->
+  <!--
+    downwards arrow with corner leftwards
+    = carriage return, U+21B5 NEW
+  -->
+  <!-- leftwards double arrow, U+21D0 ISOtech -->
+  <!--
+    Unicode does not say that lArr is the same as the 'is implied by' arrow
+    but also does not have any other character for that function. So lArr can
+    be used for 'is implied by' as ISOtech suggests
+  -->
+  <!-- upwards double arrow, U+21D1 ISOamsa -->
+  <!--
+    rightwards double arrow,
+    U+21D2 ISOtech
+  -->
+  <!--
+    Unicode does not say this is the 'implies' character but does not have 
+    another character with this function so rArr can be used for 'implies'
+    as ISOtech suggests
+  -->
+  <!-- downwards double arrow, U+21D3 ISOamsa -->
+  <!--
+    left right double arrow,
+    U+21D4 ISOamsa
+  -->
+  <!-- Mathematical Operators -->
+  <!-- for all, U+2200 ISOtech -->
+  <!-- partial differential, U+2202 ISOtech -->
+  <!-- there exists, U+2203 ISOtech -->
+  <!-- empty set = null set, U+2205 ISOamso -->
+  <!--
+    nabla = backward difference,
+    U+2207 ISOtech
+  -->
+  <!-- element of, U+2208 ISOtech -->
+  <!-- not an element of, U+2209 ISOtech -->
+  <!-- contains as member, U+220B ISOtech -->
+  <!--
+    n-ary product = product sign,
+    U+220F ISOamsb
+  -->
+  <!--
+    prod is NOT the same character as U+03A0 'greek capital letter pi' though
+    the same glyph might be used for both
+  -->
+  <!-- n-ary summation, U+2211 ISOamsb -->
+  <!--
+    sum is NOT the same character as U+03A3 'greek capital letter sigma'
+    though the same glyph might be used for both
+  -->
+  <!-- minus sign, U+2212 ISOtech -->
+  <!-- asterisk operator, U+2217 ISOtech -->
+  <!--
+    square root = radical sign,
+    U+221A ISOtech
+  -->
+  <!-- proportional to, U+221D ISOtech -->
+  <!-- infinity, U+221E ISOtech -->
+  <!-- angle, U+2220 ISOamso -->
+  <!-- logical and = wedge, U+2227 ISOtech -->
+  <!-- logical or = vee, U+2228 ISOtech -->
+  <!-- intersection = cap, U+2229 ISOtech -->
+  <!-- union = cup, U+222A ISOtech -->
+  <!-- integral, U+222B ISOtech -->
+  <!-- therefore, U+2234 ISOtech -->
+  <!--
+    tilde operator = varies with = similar to,
+    U+223C ISOtech
+  -->
+  <!--
+    tilde operator is NOT the same character as the tilde, U+007E,
+    although the same glyph might be used to represent both
+  -->
+  <!-- approximately equal to, U+2245 ISOtech -->
+  <!--
+    almost equal to = asymptotic to,
+    U+2248 ISOamsr
+  -->
+  <!-- not equal to, U+2260 ISOtech -->
+  <!-- identical to, U+2261 ISOtech -->
+  <!-- less-than or equal to, U+2264 ISOtech -->
+  <!--
+    greater-than or equal to,
+    U+2265 ISOtech
+  -->
+  <!-- subset of, U+2282 ISOtech -->
+  <!-- superset of, U+2283 ISOtech -->
+  <!-- not a subset of, U+2284 ISOamsn -->
+  <!-- subset of or equal to, U+2286 ISOtech -->
+  <!--
+    superset of or equal to,
+    U+2287 ISOtech
+  -->
+  <!--
+    circled plus = direct sum,
+    U+2295 ISOamsb
+  -->
+  <!--
+    circled times = vector product,
+    U+2297 ISOamsb
+  -->
+  <!--
+    up tack = orthogonal to = perpendicular,
+    U+22A5 ISOtech
+  -->
+  <!-- dot operator, U+22C5 ISOamsb -->
+  <!-- dot operator is NOT the same character as U+00B7 middle dot -->
+  <!-- Miscellaneous Technical -->
+  <!--
+    left ceiling = APL upstile,
+    U+2308 ISOamsc
+  -->
+  <!-- right ceiling, U+2309 ISOamsc -->
+  <!--
+    left floor = APL downstile,
+    U+230A ISOamsc
+  -->
+  <!-- right floor, U+230B ISOamsc -->
+  <!--
+    left-pointing angle bracket = bra,
+    U+2329 ISOtech
+  -->
+  <!--
+    lang is NOT the same character as U+003C 'less than sign' 
+    or U+2039 'single left-pointing angle quotation mark'
+  -->
+  <!--
+    right-pointing angle bracket = ket,
+    U+232A ISOtech
+  -->
+  <!--
+    rang is NOT the same character as U+003E 'greater than sign' 
+    or U+203A 'single right-pointing angle quotation mark'
+  -->
+  <!-- Geometric Shapes -->
+  <!-- lozenge, U+25CA ISOpub -->
+  <!-- Miscellaneous Symbols -->
+  <!-- black spade suit, U+2660 ISOpub -->
+  <!-- black here seems to mean filled as opposed to hollow -->
+  <!--
+    black club suit = shamrock,
+    U+2663 ISOpub
+  -->
+  <!--
+    black heart suit = valentine,
+    U+2665 ISOpub
+  -->
+  <!-- black diamond suit, U+2666 ISOpub -->
+  <!-- Special characters for XHTML -->
+  <!--
+    Character entity set. Typical invocation:
+    <!ENTITY % HTMLspecial PUBLIC
+       "-//W3C//ENTITIES Special for XHTML//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent">
+    %HTMLspecial;
+  -->
+  <!--
+    Portions (C) International Organization for Standardization 1986:
+    Permission to copy in any form is granted for use with
+    conforming SGML systems and applications as defined in
+    ISO 8879, provided this notice is included in all copies.
+  -->
+  <!--
+    Relevant ISO entity set is given unless names are newly introduced.
+    New names (i.e., not in ISO 8879 list) do not clash with any
+    existing ISO 8879 entity names. ISO 10646 character numbers
+    are given for each character, in hex. values are decimal
+    conversions of the ISO 10646 values and refer to the document
+    character set. Names are Unicode names. 
+  -->
+  <!-- C0 Controls and Basic Latin -->
+  <!-- quotation mark, U+0022 ISOnum -->
+  <!-- ampersand, U+0026 ISOnum -->
+  <!-- less-than sign, U+003C ISOnum -->
+  <!-- greater-than sign, U+003E ISOnum -->
+  <!-- apostrophe = APL quote, U+0027 ISOnum -->
+  <!-- Latin Extended-A -->
+  <!--
+    latin capital ligature OE,
+    U+0152 ISOlat2
+  -->
+  <!-- latin small ligature oe, U+0153 ISOlat2 -->
+  <!-- ligature is a misnomer, this is a separate character in some languages -->
+  <!--
+    latin capital letter S with caron,
+    U+0160 ISOlat2
+  -->
+  <!--
+    latin small letter s with caron,
+    U+0161 ISOlat2
+  -->
+  <!--
+    latin capital letter Y with diaeresis,
+    U+0178 ISOlat2
+  -->
+  <!-- Spacing Modifier Letters -->
+  <!--
+    modifier letter circumflex accent,
+    U+02C6 ISOpub
+  -->
+  <!-- small tilde, U+02DC ISOdia -->
+  <!-- General Punctuation -->
+  <!-- en space, U+2002 ISOpub -->
+  <!-- em space, U+2003 ISOpub -->
+  <!-- thin space, U+2009 ISOpub -->
+  <!--
+    zero width non-joiner,
+    U+200C NEW RFC 2070
+  -->
+  <!-- zero width joiner, U+200D NEW RFC 2070 -->
+  <!-- left-to-right mark, U+200E NEW RFC 2070 -->
+  <!-- right-to-left mark, U+200F NEW RFC 2070 -->
+  <!-- en dash, U+2013 ISOpub -->
+  <!-- em dash, U+2014 ISOpub -->
+  <!--
+    left single quotation mark,
+    U+2018 ISOnum
+  -->
+  <!--
+    right single quotation mark,
+    U+2019 ISOnum
+  -->
+  <!-- single low-9 quotation mark, U+201A NEW -->
+  <!--
+    left double quotation mark,
+    U+201C ISOnum
+  -->
+  <!--
+    right double quotation mark,
+    U+201D ISOnum
+  -->
+  <!-- double low-9 quotation mark, U+201E NEW -->
+  <!-- dagger, U+2020 ISOpub -->
+  <!-- double dagger, U+2021 ISOpub -->
+  <!-- per mille sign, U+2030 ISOtech -->
+  <!--
+    single left-pointing angle quotation mark,
+    U+2039 ISO proposed
+  -->
+  <!-- lsaquo is proposed but not yet ISO standardized -->
+  <!--
+    single right-pointing angle quotation mark,
+    U+203A ISO proposed
+  -->
+  <!-- rsaquo is proposed but not yet ISO standardized -->
+  <!-- Currency Symbols -->
+  <!-- euro sign, U+20AC NEW -->
+  <!-- end of xhtml-charent-1.mod -->
+  <!-- end of xhtml-framework-1.mod -->
+  <!-- Post-Framework Redeclaration placeholder  ................... -->
+  <!--
+    this serves as a location to insert markup declarations
+    into the DTD following the framework declarations.
+  -->
+  <!-- Text Module (Required)  ..................................... -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Text Module  ................................................... -->
+  <!--
+    file: xhtml-text-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Text 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-text-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Textual Content
+    
+    The Text module includes declarations for all core
+    text container elements and their attributes.
+  -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Inline Structural Module  ...................................... -->
+  <!--
+    file: xhtml-inlstruct-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Inline Structural 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-inlstruct-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Inline Structural
+    
+       br, span
+    
+    This module declares the elements and their attributes
+    used to support inline-level structural markup.
+  -->
+  <!-- br: forced line break ............................. -->
+  <xs:element name="br" substitutionGroup="xhtml:InlStruct.class">
+    <xs:complexType>
+      <xs:attributeGroup ref="xhtml:Core.attrib"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of br.element -->
+  <!-- end of br.attlist -->
+  <!-- span: generic inline container .................... -->
+  <xs:complexType name="span.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="span" substitutionGroup="xhtml:InlStruct.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:span.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of span.element -->
+  <!-- end of span.attlist -->
+  <!-- end of xhtml-inlstruct-1.mod -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Inline Phrasal Module  ......................................... -->
+  <!--
+    file: xhtml-inlphras-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Inline Phrasal 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-inlphras-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Inline Phrasal
+    
+       abbr, acronym, cite, code, dfn, em, kbd, q, samp, strong, var
+    
+    This module declares the elements and their attributes used to
+    support inline-level phrasal markup.
+  -->
+  <xs:complexType name="abbr.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="abbr" substitutionGroup="xhtml:InlPhras.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:abbr.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of abbr.element -->
+  <!-- end of abbr.attlist -->
+  <xs:complexType name="acronym.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="acronym" substitutionGroup="xhtml:InlPhras.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:acronym.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of acronym.element -->
+  <!-- end of acronym.attlist -->
+  <xs:complexType name="cite.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="cite" substitutionGroup="xhtml:InlPhras.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:cite.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of cite.element -->
+  <!-- end of cite.attlist -->
+  <xs:complexType name="code.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="code" substitutionGroup="xhtml:InlPhras.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:code.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of code.element -->
+  <!-- end of code.attlist -->
+  <xs:complexType name="dfn.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="dfn" substitutionGroup="xhtml:InlPhras.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:dfn.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of dfn.element -->
+  <!-- end of dfn.attlist -->
+  <xs:complexType name="em.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="em" substitutionGroup="xhtml:InlPhras.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:em.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of em.element -->
+  <!-- end of em.attlist -->
+  <xs:complexType name="kbd.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="kbd" substitutionGroup="xhtml:InlPhras.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:kbd.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of kbd.element -->
+  <!-- end of kbd.attlist -->
+  <xs:complexType name="q.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="q" substitutionGroup="xhtml:InlPhras.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:q.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="cite" type="xhtml:URI.datatype"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of q.element -->
+  <!-- end of q.attlist -->
+  <xs:complexType name="samp.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="samp" substitutionGroup="xhtml:InlPhras.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:samp.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of samp.element -->
+  <!-- end of samp.attlist -->
+  <xs:complexType name="strong.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="strong" substitutionGroup="xhtml:InlPhras.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:strong.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of strong.element -->
+  <!-- end of strong.attlist -->
+  <xs:complexType name="var.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="var" substitutionGroup="xhtml:InlPhras.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:var.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of var.element -->
+  <!-- end of var.attlist -->
+  <!-- end of xhtml-inlphras-1.mod -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Block Structural Module  ....................................... -->
+  <!--
+    file: xhtml-blkstruct-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Block Structural 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-blkstruct-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Block Structural
+    
+       div, p
+    
+    This module declares the elements and their attributes used to
+    support block-level structural markup.
+  -->
+  <xs:complexType name="div.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Flow.mix"/>
+  </xs:complexType>
+  <xs:element name="div" substitutionGroup="xhtml:BlkStruct.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:div.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of div.element -->
+  <!-- end of div.attlist -->
+  <xs:complexType name="p.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="p" substitutionGroup="xhtml:BlkStruct.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:p.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of p.element -->
+  <!-- end of p.attlist -->
+  <!-- end of xhtml-blkstruct-1.mod -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Block Phrasal Module  .......................................... -->
+  <!--
+    file: xhtml-blkphras-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Block Phrasal 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-blkphras-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Block Phrasal
+    
+       address, blockquote, pre, h1, h2, h3, h4, h5, h6
+    
+    This module declares the elements and their attributes used to
+    support block-level phrasal markup.
+  -->
+  <xs:complexType name="address.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="address" substitutionGroup="xhtml:BlkPhras.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:address.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of address.element -->
+  <!-- end of address.attlist -->
+  <xs:complexType name="blockquote.content">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Block.mix"/>
+  </xs:complexType>
+  <xs:element name="blockquote" substitutionGroup="xhtml:BlkPhras.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:blockquote.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="cite" type="xhtml:URI.datatype"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of blockquote.element -->
+  <!-- end of blockquote.attlist -->
+  <xs:complexType name="pre.content" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="xhtml:InlStruct.class"/>
+      <xs:element ref="xhtml:InlPhras.class"/>
+      <xs:element ref="xhtml:tt"/>
+      <xs:element ref="xhtml:i"/>
+      <xs:element ref="xhtml:b"/>
+      <xs:element ref="xhtml:I18n.class"/>
+      <xs:element ref="xhtml:Anchor.class"/>
+      <xs:element ref="xhtml:map"/>
+      <xs:element ref="xhtml:Misc.class"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="pre" substitutionGroup="xhtml:BlkPhras.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:pre.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of pre.element -->
+  <!-- end of pre.attlist -->
+  <!-- ...................  Heading Elements  ................... -->
+  <xs:complexType name="Heading.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="h1" substitutionGroup="xhtml:Heading.class"/>
+  <!-- end of h1.element -->
+  <!-- end of h1.attlist -->
+  <xs:element name="h2" substitutionGroup="xhtml:Heading.class"/>
+  <!-- end of h2.element -->
+  <!-- end of h2.attlist -->
+  <xs:element name="h3" substitutionGroup="xhtml:Heading.class"/>
+  <!-- end of h3.element -->
+  <!-- end of h3.attlist -->
+  <xs:element name="h4" substitutionGroup="xhtml:Heading.class"/>
+  <!-- end of h4.element -->
+  <!-- end of h4.attlist -->
+  <xs:element name="h5" substitutionGroup="xhtml:Heading.class"/>
+  <!-- end of h5.element -->
+  <!-- end of h5.attlist -->
+  <xs:element name="h6" substitutionGroup="xhtml:Heading.class"/>
+  <!-- end of h6.element -->
+  <!-- end of h6.attlist -->
+  <!-- end of xhtml-blkphras-1.mod -->
+  <!-- end of xhtml-text-1.mod -->
+  <!-- Hypertext Module (required) ................................. -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Hypertext Module  .............................................. -->
+  <!--
+    file: xhtml-hypertext-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Hypertext 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-hypertext-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Hypertext
+    
+       a
+    
+    This module declares the anchor ('a') element type, which
+    defines the source of a hypertext link. The destination
+    (or link 'target') is identified via its 'id' attribute
+    rather than the 'name' attribute as was used in HTML.
+  -->
+  <!-- ............  Anchor Element  ............ -->
+  <xs:complexType name="a.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:InlNoAnchor.mix"/>
+  </xs:complexType>
+  <xs:element name="a" substitutionGroup="xhtml:Anchor.class"/>
+  <!-- end of a.element -->
+  <!-- end of a.attlist -->
+  <!-- end of xhtml-hypertext-1.mod -->
+  <!-- Lists Module (required)  .................................... -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Lists Module  .................................................. -->
+  <!--
+    file: xhtml-list-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Lists 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-list-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Lists
+    
+       dl, dt, dd, ol, ul, li
+    
+    This module declares the list-oriented element types
+    and their attributes.
+  -->
+  <!-- dl: Definition List ............................... -->
+  <xs:complexType name="dl.content">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element ref="xhtml:dt"/>
+      <xs:element ref="xhtml:dd"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="dl" substitutionGroup="xhtml:List.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:dl.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of dl.element -->
+  <!-- end of dl.attlist -->
+  <!-- dt: Definition Term ............................... -->
+  <xs:complexType name="dt.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="dt">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:dt.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of dt.element -->
+  <!-- end of dt.attlist -->
+  <!-- dd: Definition Description ........................ -->
+  <xs:complexType name="dd.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Flow.mix"/>
+  </xs:complexType>
+  <xs:element name="dd">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:dd.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of dd.element -->
+  <!-- end of dd.attlist -->
+  <!-- ol: Ordered List (numbered styles) ................ -->
+  <xs:complexType name="ol.content">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="xhtml:li"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ol" substitutionGroup="xhtml:List.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:ol.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of ol.element -->
+  <!-- end of ol.attlist -->
+  <!-- ul: Unordered List (bullet styles) ................ -->
+  <xs:complexType name="ul.content">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="xhtml:li"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ul" substitutionGroup="xhtml:List.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:ul.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of ul.element -->
+  <!-- end of ul.attlist -->
+  <!-- li: List Item ..................................... -->
+  <xs:complexType name="li.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Flow.mix"/>
+  </xs:complexType>
+  <xs:element name="li">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:li.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of li.element -->
+  <!-- end of li.attlist -->
+  <!-- end of xhtml-list-1.mod -->
+  <!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+  <!-- Edit Module  ................................................ -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Editing Elements Module  ....................................... -->
+  <!--
+    file: xhtml-edit-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Editing Markup 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-edit-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Editing Elements
+    
+       ins, del
+    
+    This module declares element types and attributes used to indicate
+    inserted and deleted content while editing a document.
+  -->
+  <!-- ins: Inserted Text  ............................... -->
+  <xs:complexType name="ins.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Flow.mix"/>
+  </xs:complexType>
+  <xs:element name="ins" substitutionGroup="xhtml:Edit.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:ins.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="cite" type="xhtml:URI.datatype"/>
+          <xs:attribute name="datetime" type="xhtml:Datetime.datatype"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of ins.element -->
+  <!-- end of ins.attlist -->
+  <!-- del: Deleted Text  ................................ -->
+  <xs:complexType name="del.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Flow.mix"/>
+  </xs:complexType>
+  <xs:element name="del" substitutionGroup="xhtml:Edit.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:del.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="cite" type="xhtml:URI.datatype"/>
+          <xs:attribute name="datetime" type="xhtml:Datetime.datatype"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of del.element -->
+  <!-- end of del.attlist -->
+  <!-- end of xhtml-edit-1.mod -->
+  <!-- BIDI Override Module  ....................................... -->
+  <!-- ...................................................................... -->
+  <!-- XHTML BDO Element Module ............................................. -->
+  <!--
+    file: xhtml-bdo-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML BDO Element 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-bdo-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Bidirectional Override (bdo) Element
+    
+    This modules declares the element 'bdo', used to override the
+    Unicode bidirectional algorithm for selected fragments of text.
+    
+    DEPENDENCIES:
+    Relies on the conditional section keyword %XHTML.bidi; declared
+    as "INCLUDE". Bidirectional text support includes both the bdo
+    element and the 'dir' attribute.
+  -->
+  <xs:complexType name="bdo.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="bdo" substitutionGroup="xhtml:I18n.class"/>
+  <!-- end of bdo.element -->
+  <!-- end of xhtml-bdo-1.mod -->
+  <!-- Ruby Module  ................................................ -->
+  <xs:attributeGroup name="Ruby.common.attrib">
+    <xs:attributeGroup ref="xhtml:Common.attrib"/>
+  </xs:attributeGroup>
+  <!-- ...................................................................... -->
+  <!-- XHTML Ruby Module .................................................... -->
+  <!--
+    file: xhtml-ruby-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1999-2001 W3C (MIT, INRIA, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $
+    
+    This module is based on the W3C Ruby Annotation Specification:
+    
+       http://www.w3.org/TR/ruby
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Ruby 1.0//EN"
+      SYSTEM "http://www.w3.org/TR/ruby/xhtml-ruby-1.mod"
+    
+    ......................................................................
+  -->
+  <!--
+    Ruby Elements
+    
+       ruby, rbc, rtc, rb, rt, rp
+    
+    This module declares the elements and their attributes used to
+    support ruby annotation markup.
+  -->
+  <!-- declare qualified element type names: -->
+  <!-- rp fallback is included by default. -->
+  <!--
+    Complex ruby is included by default; it may be 
+    overridden by other modules to ignore it.
+  -->
+  <!-- Fragments for the content model of the ruby element -->
+  <xs:group name="Ruby.content.simple">
+    <xs:sequence>
+      <xs:element ref="xhtml:rb"/>
+      <xs:choice>
+        <xs:element ref="xhtml:rt"/>
+        <xs:sequence>
+          <xs:element ref="xhtml:rp"/>
+          <xs:element ref="xhtml:rt"/>
+          <xs:element ref="xhtml:rp"/>
+        </xs:sequence>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="Ruby.content.complex">
+    <xs:sequence>
+      <xs:element ref="xhtml:rbc"/>
+      <xs:element ref="xhtml:rtc"/>
+      <xs:element minOccurs="0" ref="xhtml:rtc"/>
+    </xs:sequence>
+  </xs:group>
+  <!--
+    Content models of the rb and the rt elements are intended to
+    allow other inline-level elements of its parent markup language,
+    but it should not include ruby descendent elements. The following
+    parameter entity %NoRuby.content; can be used to redefine
+    those content models with minimum effort.  It's defined as
+    '( #PCDATA )' by default.
+  -->
+  <!-- one or more digits (NUMBER) -->
+  <!-- ruby element ...................................... -->
+  <xs:complexType name="ruby.content">
+    <xs:choice>
+      <xs:group ref="xhtml:Ruby.content.simple"/>
+      <xs:group ref="xhtml:Ruby.content.complex"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="ruby" substitutionGroup="xhtml:Ruby.class"/>
+  <!-- end of ruby.element -->
+  <!-- rbc (ruby base component) element ................. -->
+  <xs:complexType name="rbc.content">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="xhtml:rb"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="rbc">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:rbc.content">
+          <xs:attributeGroup ref="xhtml:Ruby.common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of rbc.element -->
+  <!-- rtc (ruby text component) element ................. -->
+  <xs:complexType name="rtc.content">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="xhtml:rt"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="rtc">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:rtc.content">
+          <xs:attributeGroup ref="xhtml:Ruby.common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of rtc.element -->
+  <!-- rb (ruby base) element ............................ -->
+  <!--
+    %rb.content; uses %NoRuby.content; as its content model,
+    which is '( #PCDATA )' by default. It may be overridden
+    by other modules to allow other inline-level elements
+    of its parent markup language, but it should not include
+    ruby descendent elements.
+  -->
+  <xs:complexType name="rb.content">
+    <xs:complexContent>
+      <xs:extension base="xhtml:NoRuby.content"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="rb">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:rb.content">
+          <xs:attributeGroup ref="xhtml:Ruby.common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of rb.element -->
+  <!-- rt (ruby text) element ............................ -->
+  <!--
+    %rt.content; uses %NoRuby.content; as its content model,
+    which is '( #PCDATA )' by default. It may be overridden
+    by other modules to allow other inline-level elements
+    of its parent markup language, but it should not include
+    ruby descendent elements.
+  -->
+  <xs:complexType name="rt.content">
+    <xs:complexContent>
+      <xs:extension base="xhtml:NoRuby.content"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="rt">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:rt.content">
+          <xs:attribute name="rbspan" default="1" type="xhtml:Number.datatype"/>
+          <xs:attributeGroup ref="xhtml:Ruby.common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of rt.element -->
+  <!-- rbspan attribute is used for complex ruby only ...... -->
+  <!-- end of rt.attlist -->
+  <!-- rp (ruby parenthesis) element ..................... -->
+  <xs:element name="rp">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="xhtml:Ruby.common.attrib"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of rp.element -->
+  <!--
+    Ruby Common Attributes
+    
+    The following optional ATTLIST declarations provide an easy way
+    to define common attributes for ruby elements.  These declarations
+    are ignored by default.
+    
+    Ruby elements are intended to have common attributes of its
+    parent markup language.  For example, if a markup language defines
+    common attributes as a parameter entity %attrs;, you may add
+    those attributes by just declaring the following parameter entities
+    
+        <!ENTITY % Ruby.common.attlists  "INCLUDE" >
+        <!ENTITY % Ruby.common.attrib  "%attrs;" >
+    
+    before including the Ruby module.
+  -->
+  <!-- common attributes for ruby ........................ -->
+  <!-- end of Ruby.common.attlist -->
+  <!-- common attributes for rbc ......................... -->
+  <!-- end of Rbc.common.attlist -->
+  <!-- common attributes for rtc ......................... -->
+  <!-- end of Rtc.common.attlist -->
+  <!-- common attributes for rb .......................... -->
+  <!-- end of Rb.common.attlist -->
+  <!-- common attributes for rt .......................... -->
+  <!-- end of Rt.common.attlist -->
+  <!-- common attributes for rp .......................... -->
+  <!-- end of Rp.common.attlist -->
+  <!-- end of xhtml-ruby-1.mod -->
+  <!-- Presentation Module  ........................................ -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Presentation Module ............................................ -->
+  <!--
+    file: xhtml-pres-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Presentation 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-pres-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Presentational Elements
+    
+    This module defines elements and their attributes for
+    simple presentation-related markup.
+  -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Inline Presentation Module  .................................... -->
+  <!--
+    file: xhtml-inlpres-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Inline Presentation 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-inlpres-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Inline Presentational Elements
+    
+       b, big, i, small, sub, sup, tt
+    
+    This module declares the elements and their attributes used to
+    support inline-level presentational markup.
+  -->
+  <xs:complexType name="b.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="b" substitutionGroup="xhtml:InlPres.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:b.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of b.element -->
+  <!-- end of b.attlist -->
+  <xs:complexType name="big.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="big" substitutionGroup="xhtml:InlPres.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:big.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of big.element -->
+  <!-- end of big.attlist -->
+  <xs:complexType name="i.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="i" substitutionGroup="xhtml:InlPres.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:i.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of i.element -->
+  <!-- end of i.attlist -->
+  <xs:complexType name="small.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="small" substitutionGroup="xhtml:InlPres.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:small.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of small.element -->
+  <!-- end of small.attlist -->
+  <xs:complexType name="sub.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="sub" substitutionGroup="xhtml:InlPres.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:sub.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of sub.element -->
+  <!-- end of sub.attlist -->
+  <xs:complexType name="sup.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="sup" substitutionGroup="xhtml:InlPres.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:sup.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of sup.element -->
+  <!-- end of sup.attlist -->
+  <xs:complexType name="tt.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="tt" substitutionGroup="xhtml:InlPres.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:tt.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of tt.element -->
+  <!-- end of tt.attlist -->
+  <!-- end of xhtml-inlpres-1.mod -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Block Presentation Module  ..................................... -->
+  <!--
+    file: xhtml-blkpres-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Block Presentation 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-blkpres-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Block Presentational Elements
+    
+       hr
+    
+    This module declares the elements and their attributes used to
+    support block-level presentational markup.
+  -->
+  <xs:element name="hr" substitutionGroup="xhtml:BlkPres.class"/>
+  <!-- end of hr.element -->
+  <!-- end of hr.attlist -->
+  <!-- end of xhtml-blkpres-1.mod -->
+  <!-- end of xhtml-pres-1.mod -->
+  <!-- Link Element Module  ........................................ -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Link Element Module  ........................................... -->
+  <!--
+    file: xhtml-link-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Link Element 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-link-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Link element
+    
+       link
+    
+    This module declares the link element type and its attributes,
+    which could (in principle) be used to define document-level links
+    to external resources such as:
+    
+    a) for document specific toolbars/menus, e.g. start, contents,
+       previous, next, index, end, help
+    b) to link to a separate style sheet (rel="stylesheet")
+    c) to make a link to a script (rel="script")
+    d) by style sheets to control how collections of html nodes are
+       rendered into printed documents
+    e) to make a link to a printable version of this document
+       e.g. a postscript or pdf version (rel="alternate" media="print")
+  -->
+  <!-- link: Media-Independent Link ...................... -->
+  <xs:element name="link">
+    <xs:complexType>
+      <xs:attributeGroup ref="xhtml:Common.attrib"/>
+      <xs:attribute name="charset" type="xhtml:Charset.datatype"/>
+      <xs:attribute name="href" type="xhtml:URI.datatype"/>
+      <xs:attribute name="hreflang" type="xhtml:LanguageCode.datatype"/>
+      <xs:attribute name="type" type="xhtml:ContentType.datatype"/>
+      <xs:attribute name="rel" type="xhtml:LinkTypes.datatype"/>
+      <xs:attribute name="rev" type="xhtml:LinkTypes.datatype"/>
+      <xs:attribute name="media" type="xhtml:MediaDesc.datatype"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of link.element -->
+  <!-- end of link.attlist -->
+  <!-- end of xhtml-link-1.mod -->
+  <!-- Document Metainformation Module  ............................ -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Document Metainformation Module  ............................... -->
+  <!--
+    file: xhtml-meta-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Metainformation 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-meta-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Meta Information
+    
+       meta
+    
+    This module declares the meta element type and its attributes,
+    used to provide declarative document metainformation.
+  -->
+  <!-- meta: Generic Metainformation ..................... -->
+  <xs:element name="meta">
+    <xs:complexType>
+      <xs:attributeGroup ref="xhtml:I18n.attrib"/>
+      <xs:attribute name="http-equiv" type="xs:NMTOKEN"/>
+      <xs:attribute name="name" type="xs:NMTOKEN"/>
+      <xs:attribute name="content" use="required"/>
+      <xs:attribute name="scheme"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of meta.element -->
+  <!-- end of meta.attlist -->
+  <!-- end of xhtml-meta-1.mod -->
+  <!-- Base Element Module  ........................................ -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Base Element Module  ........................................... -->
+  <!--
+    file: xhtml-base-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Base Element 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-base-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Base element
+    
+       base
+    
+    This module declares the base element type and its attributes,
+    used to define a base URI against which relative URIs in the
+    document will be resolved.
+    
+    Note that this module also redeclares the content model for
+    the head element to include the base element.
+  -->
+  <!-- base: Document Base URI ........................... -->
+  <xs:element name="base">
+    <xs:complexType>
+      <xs:attribute name="href" use="required" type="xhtml:URI.datatype"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of base.element -->
+  <!-- end of base.attlist -->
+  <xs:complexType name="head.content">
+    <xs:sequence>
+      <xs:group ref="xhtml:HeadOpts.mix"/>
+      <xs:choice>
+        <xs:sequence>
+          <xs:element ref="xhtml:title"/>
+          <xs:group ref="xhtml:HeadOpts.mix"/>
+          <xs:sequence minOccurs="0">
+            <xs:element ref="xhtml:base"/>
+            <xs:group ref="xhtml:HeadOpts.mix"/>
+          </xs:sequence>
+        </xs:sequence>
+        <xs:sequence>
+          <xs:element ref="xhtml:base"/>
+          <xs:group ref="xhtml:HeadOpts.mix"/>
+          <xs:sequence>
+            <xs:element ref="xhtml:title"/>
+            <xs:group ref="xhtml:HeadOpts.mix"/>
+          </xs:sequence>
+        </xs:sequence>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- end of xhtml-base-1.mod -->
+  <!-- Scripting Module  ........................................... -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Document Scripting Module  ..................................... -->
+  <!--
+    file: xhtml-script-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Scripting 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-script-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Scripting
+    
+       script, noscript
+    
+    This module declares element types and attributes used to provide
+    support for executable scripts as well as an alternate content
+    container where scripts are not supported.
+  -->
+  <!-- script: Scripting Statement ....................... -->
+  <xs:element name="script" substitutionGroup="xhtml:Script.class">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="xhtml:id.attrib"/>
+      <xs:attribute ref="xml:space" default="preserve"/>
+      <xs:attribute name="charset" type="xhtml:Charset.datatype"/>
+      <xs:attribute name="type" use="required" type="xhtml:ContentType.datatype"/>
+      <xs:attribute name="src" type="xhtml:URI.datatype"/>
+      <xs:attribute name="defer">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="defer"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of script.element -->
+  <!-- end of script.attlist -->
+  <!-- noscript: No-Script Alternate Content ............. -->
+  <xs:complexType name="noscript.content">
+    <xs:group maxOccurs="unbounded" ref="xhtml:Block.mix"/>
+  </xs:complexType>
+  <xs:element name="noscript" substitutionGroup="xhtml:Script.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:noscript.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of noscript.element -->
+  <!-- end of noscript.attlist -->
+  <!-- end of xhtml-script-1.mod -->
+  <!-- Style Sheets Module  ......................................... -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Document Style Sheet Module  ................................... -->
+  <!--
+    file: xhtml-style-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//DTD XHTML Style Sheets 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-style-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Style Sheets
+    
+       style
+    
+    This module declares the style element type and its attributes,
+    used to embed style sheet information in the document head element.
+  -->
+  <!-- style: Style Sheet Information .................... -->
+  <xs:element name="style">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="xhtml:id.attrib"/>
+      <xs:attributeGroup ref="xhtml:title.attrib"/>
+      <xs:attributeGroup ref="xhtml:I18n.attrib"/>
+      <xs:attribute ref="xml:space" default="preserve"/>
+      <xs:attribute name="type" use="required" type="xhtml:ContentType.datatype"/>
+      <xs:attribute name="media" type="xhtml:MediaDesc.datatype"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of style.element -->
+  <!-- end of style.attlist -->
+  <!-- end of xhtml-style-1.mod -->
+  <!-- Image Module  ............................................... -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Images Module  ................................................. -->
+  <!--
+    file: xhtml-image-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Rovision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Images 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-image-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Images
+    
+       img
+    
+    This module provides markup to support basic image embedding.
+  -->
+  <!--
+    To avoid problems with text-only UAs as well as to make
+    image content understandable and navigable to users of
+    non-visual UAs, you need to provide a description with
+    the 'alt' attribute, and avoid server-side image maps.
+  -->
+  <xs:element name="img" substitutionGroup="xhtml:InlSpecial.class">
+    <xs:complexType>
+      <xs:attributeGroup ref="xhtml:Common.attrib"/>
+      <xs:attribute name="src" use="required" type="xhtml:URI.datatype"/>
+      <xs:attribute name="alt" use="required" type="xhtml:Text.datatype"/>
+      <xs:attribute name="longdesc" type="xhtml:URI.datatype"/>
+      <xs:attribute name="name"/>
+      <xs:attribute name="height" type="xhtml:Length.datatype"/>
+      <xs:attribute name="width" type="xhtml:Length.datatype"/>
+      <xs:attribute name="usemap" type="xhtml:URIREF.datatype"/>
+      <xs:attribute name="ismap">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="ismap"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of img.element -->
+  <!-- end of img.attlist -->
+  <!-- end of xhtml-image-1.mod -->
+  <!-- Client-side Image Map Module  ............................... -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Client-side Image Map Module  .................................. -->
+  <!--
+    file: xhtml-csismap-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Client-side Image Maps 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-csismap-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Client-side Image Maps
+    
+       area, map
+    
+    This module declares elements and attributes to support client-side
+    image maps. This requires that the Image Module (or a module
+    declaring the img element type) be included in the DTD.
+    
+    These can be placed in the same document or grouped in a
+    separate document, although the latter isn't widely supported
+  -->
+  <xs:element name="area">
+    <xs:complexType>
+      <xs:attribute name="onfocus" type="xhtml:Script.datatype"/>
+      <xs:attribute name="onblur" type="xhtml:Script.datatype"/>
+      <xs:attributeGroup ref="xhtml:Common.attrib"/>
+      <xs:attribute name="href" type="xhtml:URI.datatype"/>
+      <xs:attribute name="shape" default="rect" type="xhtml:Shape.datatype"/>
+      <xs:attribute name="coords" type="xhtml:Coords.datatype"/>
+      <xs:attribute name="nohref">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="nohref"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="alt" use="required" type="xhtml:Text.datatype"/>
+      <xs:attribute name="tabindex" type="xhtml:Number.datatype"/>
+      <xs:attribute name="accesskey" type="xhtml:Character.datatype"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of area.element -->
+  <xs:simpleType name="Shape.datatype">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="rect"/>
+      <xs:enumeration value="circle"/>
+      <xs:enumeration value="poly"/>
+      <xs:enumeration value="default"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Coords.datatype">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- end of area.attlist -->
+  <!--
+    modify anchor attribute definition list
+    to allow for client-side image maps
+  -->
+  <!--
+    modify img attribute definition list
+    to allow for client-side image maps
+  -->
+  <!--
+    modify form input attribute definition list
+    to allow for client-side image maps
+  -->
+  <!--
+    modify object attribute definition list
+    to allow for client-side image maps
+  -->
+  <!--
+    'usemap' points to the 'id' attribute of a <map> element,
+    which must be in the same document; support for external
+    document maps was not widely supported in HTML and is
+    eliminated in XHTML.
+    
+    It is considered an error for the element pointed to by
+    a usemap IDREF to occur in anything but a <map> element.
+  -->
+  <xs:complexType name="map.content">
+    <xs:choice maxOccurs="unbounded">
+      <xs:group ref="xhtml:Block.mix"/>
+      <xs:element ref="xhtml:area"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="map" substitutionGroup="xhtml:InlSpecial.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:map.content">
+          <xs:attribute name="id" use="required" type="xs:ID"/>
+          <xs:attributeGroup ref="xhtml:class.attrib"/>
+          <xs:attributeGroup ref="xhtml:title.attrib"/>
+          <xs:attributeGroup ref="xhtml:Core.extra.attrib"/>
+          <xs:attributeGroup ref="xhtml:I18n.attrib"/>
+          <xs:attributeGroup ref="xhtml:Events.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of map.element -->
+  <!-- end of map.attlist -->
+  <!-- end of xhtml-csismap-1.mod -->
+  <!-- Server-side Image Map Module  ............................... -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Server-side Image Map Module  .................................. -->
+  <!--
+    file: xhtml-ssismap-1.mod
+    
+         This is XHTML, a reformulation of HTML as a modular XML application.
+         Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+         Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+         This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+           PUBLIC "-//W3C//ELEMENTS XHTML Server-side Image Maps 1.0//EN"
+           SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-ssismap-1.mod"
+    
+         Revisions:
+    #2000-10-22: added declaration for 'ismap' on <input>
+         .......................................................................
+  -->
+  <!--
+    Server-side Image Maps
+    
+    This adds the 'ismap' attribute to the img and input elements
+    to support server-side processing of a user selection.
+  -->
+  <!-- end of xhtml-ssismap-1.mod -->
+  <!-- Param Element Module  ....................................... -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Param Element Module  ..................................... -->
+  <!--
+    file: xhtml-param-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Param Element 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-param-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Parameters for Java Applets and Embedded Objects
+    
+       param
+    
+    This module provides declarations for the param element,
+    used to provide named property values for the applet
+    and object elements.
+  -->
+  <!-- param: Named Property Value ....................... -->
+  <xs:element name="param">
+    <xs:complexType>
+      <xs:attributeGroup ref="xhtml:id.attrib"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="value"/>
+      <xs:attribute name="valuetype" default="data">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="data"/>
+            <xs:enumeration value="ref"/>
+            <xs:enumeration value="object"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="type" type="xhtml:ContentType.datatype"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of param.element -->
+  <!-- end of param.attlist -->
+  <!-- end of xhtml-param-1.mod -->
+  <!-- Embedded Object Module  ..................................... -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Embedded Object Module  ........................................ -->
+  <!--
+    file: xhtml-object-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Embedded Object 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-object-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Embedded Objects
+    
+       object
+    
+    This module declares the object element type and its attributes, used
+    to embed external objects as part of XHTML pages. In the document,
+    place param elements prior to other content within the object element.
+    
+    Note that use of this module requires instantiation of the Param
+    Element Module.
+  -->
+  <!-- object: Generic Embedded Object ................... -->
+  <xs:complexType name="object.content" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="xhtml:Flow.mix"/>
+      <xs:element ref="xhtml:param"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="object" substitutionGroup="xhtml:InlSpecial.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:object.content">
+          <xs:attribute name="usemap" type="xhtml:URIREF.datatype"/>
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="declare">
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="declare"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="classid" type="xhtml:URI.datatype"/>
+          <xs:attribute name="codebase" type="xhtml:URI.datatype"/>
+          <xs:attribute name="data" type="xhtml:URI.datatype"/>
+          <xs:attribute name="type" type="xhtml:ContentType.datatype"/>
+          <xs:attribute name="codetype" type="xhtml:ContentType.datatype"/>
+          <xs:attribute name="archive" type="xhtml:URIs.datatype"/>
+          <xs:attribute name="standby" type="xhtml:Text.datatype"/>
+          <xs:attribute name="height" type="xhtml:Length.datatype"/>
+          <xs:attribute name="width" type="xhtml:Length.datatype"/>
+          <xs:attribute name="name"/>
+          <xs:attribute name="tabindex" type="xhtml:Number.datatype"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of object.element -->
+  <!-- end of object.attlist -->
+  <!-- end of xhtml-object-1.mod -->
+  <!-- Tables Module ............................................... -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Table Module  .................................................. -->
+  <!--
+    file: xhtml-table-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Tables 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-table-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Tables
+    
+       table, caption, thead, tfoot, tbody, colgroup, col, tr, th, td
+    
+    This module declares element types and attributes used to provide
+    table markup similar to HTML 4, including features that enable
+    better accessibility for non-visual user agents.
+  -->
+  <!-- declare qualified element type names: -->
+  <!--
+    The frame attribute specifies which parts of the frame around
+    the table should be rendered. The values are not the same as
+    CALS to avoid a name clash with the valign attribute.
+  -->
+  <xs:attributeGroup name="frame.attrib">
+    <xs:attribute name="frame">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="void"/>
+          <xs:enumeration value="above"/>
+          <xs:enumeration value="below"/>
+          <xs:enumeration value="hsides"/>
+          <xs:enumeration value="lhs"/>
+          <xs:enumeration value="rhs"/>
+          <xs:enumeration value="vsides"/>
+          <xs:enumeration value="box"/>
+          <xs:enumeration value="border"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <!--
+    The rules attribute defines which rules to draw between cells:
+    
+    If rules is absent then assume:
+    
+      "none" if border is absent or border="0" otherwise "all"
+  -->
+  <xs:attributeGroup name="rules.attrib">
+    <xs:attribute name="rules">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="none"/>
+          <xs:enumeration value="groups"/>
+          <xs:enumeration value="rows"/>
+          <xs:enumeration value="cols"/>
+          <xs:enumeration value="all"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <!-- horizontal alignment attributes for cell contents -->
+  <xs:attributeGroup name="CellHAlign.attrib">
+    <xs:attribute name="align">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="left"/>
+          <xs:enumeration value="center"/>
+          <xs:enumeration value="right"/>
+          <xs:enumeration value="justify"/>
+          <xs:enumeration value="char"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="char" type="xhtml:Character.datatype"/>
+    <xs:attribute name="charoff" type="xhtml:Length.datatype"/>
+  </xs:attributeGroup>
+  <!-- vertical alignment attribute for cell contents -->
+  <xs:attributeGroup name="CellVAlign.attrib">
+    <xs:attribute name="valign">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="top"/>
+          <xs:enumeration value="middle"/>
+          <xs:enumeration value="bottom"/>
+          <xs:enumeration value="baseline"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <!-- scope is simpler than axes attribute for common tables -->
+  <xs:attributeGroup name="scope.attrib">
+    <xs:attribute name="scope">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="row"/>
+          <xs:enumeration value="col"/>
+          <xs:enumeration value="rowgroup"/>
+          <xs:enumeration value="colgroup"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <!-- table: Table Element .............................. -->
+  <xs:complexType name="table.content">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="xhtml:caption"/>
+      <xs:choice>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="xhtml:col"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="xhtml:colgroup"/>
+      </xs:choice>
+      <xs:choice>
+        <xs:sequence>
+          <xs:element minOccurs="0" ref="xhtml:thead"/>
+          <xs:element minOccurs="0" ref="xhtml:tfoot"/>
+          <xs:element maxOccurs="unbounded" ref="xhtml:tbody"/>
+        </xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="xhtml:tr"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="table" substitutionGroup="xhtml:Table.class"/>
+  <!-- end of table.element -->
+  <!-- end of table.attlist -->
+  <!-- caption: Table Caption ............................ -->
+  <xs:complexType name="caption.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="caption">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:caption.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of caption.element -->
+  <!-- end of caption.attlist -->
+  <!-- thead: Table Header ............................... -->
+  <!--
+    Use thead to duplicate headers when breaking table
+    across page boundaries, or for static headers when
+    tbody sections are rendered in scrolling panel.
+  -->
+  <xs:complexType name="thead.content">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="xhtml:tr"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="thead">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:thead.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attributeGroup ref="xhtml:CellHAlign.attrib"/>
+          <xs:attributeGroup ref="xhtml:CellVAlign.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of thead.element -->
+  <!-- end of thead.attlist -->
+  <!-- tfoot: Table Footer ............................... -->
+  <!--
+    Use tfoot to duplicate footers when breaking table
+    across page boundaries, or for static footers when
+    tbody sections are rendered in scrolling panel.
+  -->
+  <xs:complexType name="tfoot.content">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="xhtml:tr"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tfoot">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:tfoot.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attributeGroup ref="xhtml:CellHAlign.attrib"/>
+          <xs:attributeGroup ref="xhtml:CellVAlign.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of tfoot.element -->
+  <!-- end of tfoot.attlist -->
+  <!-- tbody: Table Body ................................. -->
+  <!--
+    Use multiple tbody sections when rules are needed
+    between groups of table rows.
+  -->
+  <xs:complexType name="tbody.content">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="xhtml:tr"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tbody">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:tbody.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attributeGroup ref="xhtml:CellHAlign.attrib"/>
+          <xs:attributeGroup ref="xhtml:CellVAlign.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of tbody.element -->
+  <!-- end of tbody.attlist -->
+  <!-- colgroup: Table Column Group ...................... -->
+  <!--
+    colgroup groups a set of col elements. It allows you
+    to group several semantically-related columns together.
+  -->
+  <xs:complexType name="colgroup.content">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="xhtml:col"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="colgroup">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:colgroup.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="span" default="1" type="xhtml:Number.datatype"/>
+          <xs:attribute name="width" type="xhtml:MultiLength.datatype"/>
+          <xs:attributeGroup ref="xhtml:CellHAlign.attrib"/>
+          <xs:attributeGroup ref="xhtml:CellVAlign.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of colgroup.element -->
+  <!-- end of colgroup.attlist -->
+  <!-- col: Table Column ................................. -->
+  <!--
+    col elements define the alignment properties for
+    cells in one or more columns.
+    
+    The width attribute specifies the width of the
+    columns, e.g.
+    
+      width="64"        width in screen pixels
+      width="0.5*"      relative width of 0.5
+    
+    The span attribute causes the attributes of one
+    col element to apply to more than one column.
+  -->
+  <xs:element name="col">
+    <xs:complexType>
+      <xs:attributeGroup ref="xhtml:Common.attrib"/>
+      <xs:attribute name="span" default="1" type="xhtml:Number.datatype"/>
+      <xs:attribute name="width" type="xhtml:MultiLength.datatype"/>
+      <xs:attributeGroup ref="xhtml:CellHAlign.attrib"/>
+      <xs:attributeGroup ref="xhtml:CellVAlign.attrib"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of col.element -->
+  <!-- end of col.attlist -->
+  <!-- tr: Table Row ..................................... -->
+  <xs:complexType name="tr.content">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element ref="xhtml:th"/>
+      <xs:element ref="xhtml:td"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="tr">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:tr.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attributeGroup ref="xhtml:CellHAlign.attrib"/>
+          <xs:attributeGroup ref="xhtml:CellVAlign.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of tr.element -->
+  <!-- end of tr.attlist -->
+  <!-- th: Table Header Cell ............................. -->
+  <!--
+    th is for header cells, td for data,
+    but for cells acting as both use td
+  -->
+  <xs:complexType name="th.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Flow.mix"/>
+  </xs:complexType>
+  <xs:element name="th">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:th.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="abbr" type="xhtml:Text.datatype"/>
+          <xs:attribute name="axis"/>
+          <xs:attribute name="headers" type="xs:IDREFS"/>
+          <xs:attributeGroup ref="xhtml:scope.attrib"/>
+          <xs:attribute name="rowspan" default="1" type="xhtml:Number.datatype"/>
+          <xs:attribute name="colspan" default="1" type="xhtml:Number.datatype"/>
+          <xs:attributeGroup ref="xhtml:CellHAlign.attrib"/>
+          <xs:attributeGroup ref="xhtml:CellVAlign.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of th.element -->
+  <!-- end of th.attlist -->
+  <!-- td: Table Data Cell ............................... -->
+  <xs:complexType name="td.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Flow.mix"/>
+  </xs:complexType>
+  <xs:element name="td">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:td.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="abbr" type="xhtml:Text.datatype"/>
+          <xs:attribute name="axis"/>
+          <xs:attribute name="headers" type="xs:IDREFS"/>
+          <xs:attributeGroup ref="xhtml:scope.attrib"/>
+          <xs:attribute name="rowspan" default="1" type="xhtml:Number.datatype"/>
+          <xs:attribute name="colspan" default="1" type="xhtml:Number.datatype"/>
+          <xs:attributeGroup ref="xhtml:CellHAlign.attrib"/>
+          <xs:attributeGroup ref="xhtml:CellVAlign.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of td.element -->
+  <!-- end of td.attlist -->
+  <!-- end of xhtml-table-1.mod -->
+  <!-- Forms Module  ............................................... -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Forms Module  .................................................. -->
+  <!--
+    file: xhtml-form-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Forms 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-form-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Forms
+    
+       form, label, input, select, optgroup, option,
+       textarea, fieldset, legend, button
+    
+    This module declares markup to provide support for online
+    forms, based on the features found in HTML 4 forms.
+  -->
+  <!-- declare qualified element type names: -->
+  <!--
+    %BlkNoForm.mix; includes all non-form block elements,
+    plus %Misc.class;
+  -->
+  <xs:group name="BlkNoForm.mix">
+    <xs:choice>
+      <xs:element ref="xhtml:Heading.class"/>
+      <xs:element ref="xhtml:List.class"/>
+      <xs:element ref="xhtml:BlkStruct.class"/>
+      <xs:element ref="xhtml:BlkPhras.class"/>
+      <xs:element ref="xhtml:BlkPres.class"/>
+      <xs:element ref="xhtml:Table.class"/>
+      <xs:element ref="xhtml:Misc.class"/>
+    </xs:choice>
+  </xs:group>
+  <!-- form: Form Element ................................ -->
+  <xs:complexType name="form.content">
+    <xs:choice maxOccurs="unbounded">
+      <xs:group ref="xhtml:BlkNoForm.mix"/>
+      <xs:element ref="xhtml:fieldset"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="form" substitutionGroup="xhtml:Form.class"/>
+  <!-- end of form.element -->
+  <!-- end of form.attlist -->
+  <!-- label: Form Field Label Text ...................... -->
+  <!-- Each label must not contain more than ONE field -->
+  <xs:complexType name="label.content" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="xhtml:input"/>
+      <xs:element ref="xhtml:select"/>
+      <xs:element ref="xhtml:textarea"/>
+      <xs:element ref="xhtml:button"/>
+      <xs:element ref="xhtml:InlStruct.class"/>
+      <xs:element ref="xhtml:InlPhras.class"/>
+      <xs:element ref="xhtml:I18n.class"/>
+      <xs:element ref="xhtml:InlPres.class"/>
+      <xs:element ref="xhtml:Anchor.class"/>
+      <xs:element ref="xhtml:InlSpecial.class"/>
+      <xs:element ref="xhtml:Misc.class"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="label" substitutionGroup="xhtml:InlForm.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:label.content">
+          <xs:attribute name="onfocus" type="xhtml:Script.datatype"/>
+          <xs:attribute name="onblur" type="xhtml:Script.datatype"/>
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="for" type="xs:IDREF"/>
+          <xs:attribute name="accesskey" type="xhtml:Character.datatype"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of label.element -->
+  <!-- end of label.attlist -->
+  <!-- input: Form Control ............................... -->
+  <xs:element name="input" substitutionGroup="xhtml:InlForm.class">
+    <xs:complexType>
+      <xs:attribute name="onfocus" type="xhtml:Script.datatype"/>
+      <xs:attribute name="onblur" type="xhtml:Script.datatype"/>
+      <xs:attribute name="onselect" type="xhtml:Script.datatype"/>
+      <xs:attribute name="onchange" type="xhtml:Script.datatype"/>
+      <xs:attribute name="usemap" type="xhtml:URIREF.datatype"/>
+      <xs:attribute name="ismap">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="ismap"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attributeGroup ref="xhtml:Common.attrib"/>
+      <xs:attribute name="type" default="text" type="xhtml:InputType.class"/>
+      <xs:attribute name="name"/>
+      <xs:attribute name="value"/>
+      <xs:attribute name="checked">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="checked"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="disabled">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="disabled"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="readonly">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="readonly"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="size" type="xhtml:Number.datatype"/>
+      <xs:attribute name="maxlength" type="xhtml:Number.datatype"/>
+      <xs:attribute name="src" type="xhtml:URI.datatype"/>
+      <xs:attribute name="alt" type="xhtml:Text.datatype"/>
+      <xs:attribute name="tabindex" type="xhtml:Number.datatype"/>
+      <xs:attribute name="accesskey" type="xhtml:Character.datatype"/>
+      <xs:attribute name="accept" type="xhtml:ContentTypes.datatype"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of input.element -->
+  <xs:simpleType name="InputType.class">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="text"/>
+      <xs:enumeration value="password"/>
+      <xs:enumeration value="checkbox"/>
+      <xs:enumeration value="radio"/>
+      <xs:enumeration value="submit"/>
+      <xs:enumeration value="reset"/>
+      <xs:enumeration value="file"/>
+      <xs:enumeration value="hidden"/>
+      <xs:enumeration value="image"/>
+      <xs:enumeration value="button"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- attribute 'name' required for all but submit & reset -->
+  <!-- end of input.attlist -->
+  <!-- select: Option Selector ........................... -->
+  <xs:complexType name="select.content">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element ref="xhtml:optgroup"/>
+      <xs:element ref="xhtml:option"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="select" substitutionGroup="xhtml:InlForm.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:select.content">
+          <xs:attribute name="onfocus" type="xhtml:Script.datatype"/>
+          <xs:attribute name="onblur" type="xhtml:Script.datatype"/>
+          <xs:attribute name="onchange" type="xhtml:Script.datatype"/>
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="name"/>
+          <xs:attribute name="size" type="xhtml:Number.datatype"/>
+          <xs:attribute name="multiple">
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="multiple"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="disabled">
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="disabled"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="tabindex" type="xhtml:Number.datatype"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of select.element -->
+  <!-- end of select.attlist -->
+  <!-- optgroup: Option Group ............................ -->
+  <xs:complexType name="optgroup.content">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="xhtml:option"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="optgroup">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:optgroup.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="disabled">
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="disabled"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="label" use="required" type="xhtml:Text.datatype"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of optgroup.element -->
+  <!-- end of optgroup.attlist -->
+  <!-- option: Selectable Choice ......................... -->
+  <xs:element name="option">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="xhtml:Common.attrib"/>
+      <xs:attribute name="selected">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="selected"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="disabled">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="disabled"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="label" type="xhtml:Text.datatype"/>
+      <xs:attribute name="value"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of option.element -->
+  <!-- end of option.attlist -->
+  <!-- textarea: Multi-Line Text Field ................... -->
+  <xs:element name="textarea" substitutionGroup="xhtml:InlForm.class">
+    <xs:complexType mixed="true">
+      <xs:attribute name="onfocus" type="xhtml:Script.datatype"/>
+      <xs:attribute name="onblur" type="xhtml:Script.datatype"/>
+      <xs:attribute name="onselect" type="xhtml:Script.datatype"/>
+      <xs:attribute name="onchange" type="xhtml:Script.datatype"/>
+      <xs:attributeGroup ref="xhtml:Common.attrib"/>
+      <xs:attribute name="name"/>
+      <xs:attribute name="rows" use="required" type="xhtml:Number.datatype"/>
+      <xs:attribute name="cols" use="required" type="xhtml:Number.datatype"/>
+      <xs:attribute name="disabled">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="disabled"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="readonly">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="readonly"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="tabindex" type="xhtml:Number.datatype"/>
+      <xs:attribute name="accesskey" type="xhtml:Character.datatype"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of textarea.element -->
+  <!-- end of textarea.attlist -->
+  <!-- fieldset: Form Control Group ...................... -->
+  <!--
+    #PCDATA is to solve the mixed content problem,
+    per specification only whitespace is allowed
+  -->
+  <xs:complexType name="fieldset.content" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="xhtml:legend"/>
+      <xs:group ref="xhtml:Flow.mix"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="fieldset" substitutionGroup="xhtml:Fieldset.class"/>
+  <!-- end of fieldset.element -->
+  <!-- end of fieldset.attlist -->
+  <!-- legend: Fieldset Legend ........................... -->
+  <xs:complexType name="legend.content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Inline.mix"/>
+  </xs:complexType>
+  <xs:element name="legend">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:legend.content">
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="accesskey" type="xhtml:Character.datatype"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of legend.element -->
+  <!-- end of legend.attlist -->
+  <!-- button: Push Button ............................... -->
+  <xs:complexType name="button.content" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="xhtml:BlkNoForm.mix"/>
+      <xs:element ref="xhtml:InlStruct.class"/>
+      <xs:element ref="xhtml:InlPhras.class"/>
+      <xs:element ref="xhtml:InlPres.class"/>
+      <xs:element ref="xhtml:I18n.class"/>
+      <xs:element ref="xhtml:InlSpecial.class"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="button" substitutionGroup="xhtml:InlForm.class">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:button.content">
+          <xs:attribute name="onfocus" type="xhtml:Script.datatype"/>
+          <xs:attribute name="onblur" type="xhtml:Script.datatype"/>
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+          <xs:attribute name="name"/>
+          <xs:attribute name="value"/>
+          <xs:attribute name="type" default="submit">
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="button"/>
+                <xs:enumeration value="submit"/>
+                <xs:enumeration value="reset"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="disabled">
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="disabled"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="tabindex" type="xhtml:Number.datatype"/>
+          <xs:attribute name="accesskey" type="xhtml:Character.datatype"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of button.element -->
+  <!-- end of button.attlist -->
+  <!-- end of xhtml-form-1.mod -->
+  <!-- Legacy Markup ............................................... -->
+  <!-- Document Structure Module (required)  ....................... -->
+  <!-- ...................................................................... -->
+  <!-- XHTML Structure Module  .............................................. -->
+  <!--
+    file: xhtml-struct-1.mod
+    
+    This is XHTML, a reformulation of HTML as a modular XML application.
+    Copyright 1998-2005 W3C (MIT, ERCIM, Keio), All Rights Reserved.
+    Revision: $Id: xhtml11-flat.dtd,v 1.1 2010/11/24 20:56:19 bertails Exp $ SMI
+    
+    This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+    
+      PUBLIC "-//W3C//ELEMENTS XHTML Document Structure 1.0//EN"
+      SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-struct-1.mod"
+    
+    Revisions:
+    (none)
+    .......................................................................
+  -->
+  <!--
+    Document Structure
+    
+       title, head, body, html
+    
+    The Structure Module defines the major structural elements and
+    their attributes.
+    
+    Note that the content model of the head element type is redeclared
+    when the Base Module is included in the DTD.
+    
+    The parameter entity containing the XML namespace URI value used
+    for XHTML is '%XHTML.xmlns;', defined in the Qualified Names module.
+  -->
+  <!-- title: Document Title ............................. -->
+  <!--
+    The title element is not considered part of the flow of text.
+    It should be displayed, for example as the page header or
+    window title. Exactly one title is required per document.
+  -->
+  <xs:element name="title">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="xhtml:I18n.attrib"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of title.element -->
+  <!-- end of title.attlist -->
+  <!-- head: Document Head ............................... -->
+  <xs:element name="head">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:head.content">
+          <xs:attributeGroup ref="xhtml:I18n.attrib"/>
+          <xs:attributeGroup ref="xhtml:profile.attrib"/>
+          <xs:attributeGroup ref="xhtml:id.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of head.element -->
+  <!-- reserved for future use with document profiles -->
+  <xs:attributeGroup name="profile.attrib">
+    <xs:attribute name="profile" default="" type="xhtml:URIs.datatype"/>
+  </xs:attributeGroup>
+  <!-- end of head.attlist -->
+  <!-- body: Document Body ............................... -->
+  <xs:complexType name="body.content">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="xhtml:Block.mix"/>
+  </xs:complexType>
+  <xs:element name="body">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:body.content">
+          <xs:attribute name="onload" type="xhtml:Script.datatype"/>
+          <xs:attribute name="onunload" type="xhtml:Script.datatype"/>
+          <xs:attributeGroup ref="xhtml:Common.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of body.element -->
+  <!-- end of body.attlist -->
+  <!-- html: XHTML Document Element ...................... -->
+  <xs:complexType name="html.content">
+    <xs:sequence>
+      <xs:element ref="xhtml:head"/>
+      <xs:element ref="xhtml:body"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="html">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="xhtml:html.content">
+          <xs:attributeGroup ref="xhtml:XSI.schemaLocation.attrib"/>
+          <xs:attributeGroup ref="xhtml:XHTML.version.attrib"/>
+          <xs:attributeGroup ref="xhtml:I18n.attrib"/>
+          <xs:attributeGroup ref="xhtml:id.attrib"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <!-- end of html.element -->
+  <!-- define a parameter for the XSI schemaLocation attribute -->
+  <xs:attributeGroup name="XSI.schemaLocation.attrib">
+    <xs:attribute ref="xsi:schemaLocation"/>
+  </xs:attributeGroup>
+  <!-- version attribute value defined in driver -->
+  <xs:attributeGroup name="XHTML.version.attrib">
+    <xs:attribute name="version" default="-//W3C//DTD XHTML 1.1//EN">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="-//W3C//DTD XHTML 1.1//EN"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+</xs:schema>
+<!--
+  see the Qualified Names module for information
+  on how to extend XHTML using XML namespaces
+-->
+<!-- end of html.attlist -->
+<!-- end of xhtml-struct-1.mod -->
+<!-- end of XHTML 1.1 DTD  ................................................. -->
+<!-- ....................................................................... -->

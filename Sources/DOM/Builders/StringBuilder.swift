@@ -2,7 +2,7 @@
 public struct StringBuilder {
     // MARK: buildBlock
 
-    public static func buildBlock(_ string: String) -> String {
+    public static func buildExpression(_ string: String) -> String {
         return string
     }
 

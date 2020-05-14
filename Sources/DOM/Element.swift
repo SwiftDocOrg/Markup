@@ -105,7 +105,7 @@ extension Constructable where Self: Element {
 // MARK: - DOMBuilder
 
 extension Element {
-    public convenience init(name: String, attributes: [String: String] = [:], @DOMBuilder children builder: () -> Node) {
+    public convenience init(name: String, attributes: [String: String] = [:], @DOMBuilder children builder: () -> Node = { DocumentFragment() }) {
         self.init(name: name, attributes: attributes)
 
         switch builder() {
@@ -116,14 +116,5 @@ extension Element {
         case let node:
             self.insert(child: node)
         }
-    }
-}
-
-// MARK: - StringBuilder
-
-extension Element {
-    public convenience init(name: String, attributes: [String: String] = [:], @StringBuilder content builder: () -> String) {
-        self.init(name: name, attributes: attributes)
-        self.insert(child: Text(content: builder()))
     }
 }

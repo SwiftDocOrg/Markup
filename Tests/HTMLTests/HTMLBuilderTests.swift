@@ -2,6 +2,7 @@ import XCTest
 import Foundation
 import HTML
 
+#if swift(>=5.3)
 final class HTMLBuilderTests: XCTestCase {
     func testBuilderWithInitializers() throws {
         let actual = Document {
@@ -48,7 +49,6 @@ final class HTMLBuilderTests: XCTestCase {
         XCTAssertEqual(actual?.description, expected?.description)
     }
 
-    #if swift(>=5.3)
     func testBuilderWithFunctions() throws {
         let actual = Document {
             html(["lang": "en"]) {
@@ -94,5 +94,5 @@ final class HTMLBuilderTests: XCTestCase {
 
         XCTAssertEqual(actual?.description, expected?.description)
     }
-    #endif
 }
+#endif

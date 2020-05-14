@@ -2,6 +2,7 @@ import XCTest
 import Foundation
 import XML
 
+#if swift(>=5.3)
 final class XMLBuilderTests: XCTestCase {
     func testBuilder() throws {
         let actual = Document {
@@ -23,3 +24,4 @@ final class XMLBuilderTests: XCTestCase {
         XCTAssertEqual(actual?.description, expected?.description)
     }
 }
+#endif

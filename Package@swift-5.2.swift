@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.1
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -34,8 +34,7 @@ let package = Package(
             dependencies: ["libxml2"]),
         .target(
             name: "HTML",
-            dependencies: ["DOM", "XPath", "libxml2"],
-            exclude: ["HTMLTags.swift.gyb"]),
+            dependencies: ["DOM", "XPath", "libxml2"]),
         .target(
             name: "XML",
             dependencies: ["DOM", "XPath", "libxml2"]),

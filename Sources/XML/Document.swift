@@ -38,10 +38,6 @@ public final class Document: DOM.Document {
         return Properties(rawValue: xmlDoc.pointee.properties)
     }
 
-    public var namespaceDefinitions: [Namespace] {
-        return sequence(first: xmlDoc.pointee.oldNs, next: { $0.pointee.next }).compactMap { Namespace(rawValue: $0) }
-    }
-
     // MARK: -
 
     public convenience init?(version: String? = nil) {
@@ -82,7 +78,7 @@ extension Document {
 
     public func evaluate(xpath: XPath.Expression) -> XPath.Object? {
         guard let context = Context(document: self) else { return nil }
-        for namespace in namespaceDefinitions {
+        for namespace in root?.namespaceDefinitions ?? [] {
             context.register(namespace: namespace)
         }
 
@@ -90,5 +86,22 @@ extension Document {
         //        defer { xmlXPathFreeObject(object) }
 
         return XPath.Object(rawValue: object)
+    }
+}
+
+// MARK: - Builder
+
+extension Document {
+    public convenience init?(@DOMBuilder builder: () -> Node) {
+        self.init()
+
+        switch builder() {
+        case let fragment as DocumentFragment & Constructable:
+            for child in fragment.children {
+                self.insert(child: child)
+            }
+        case let node:
+            self.insert(child: node)
+        }
     }
 }

@@ -34,3 +34,11 @@ extension Text: ExpressibleByStringLiteral {
         self.init(content: value)
     }
 }
+
+// MARK: - StringBuilder
+
+extension Text {
+    public convenience init(@StringBuilder _ builder: () -> String) {
+        self.init(content: builder())
+    }
+}

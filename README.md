@@ -20,7 +20,7 @@ based on [libxml2][libxml2].
 - [ ] XInclude Support*
 - [ ] XSLT Support*
 - [ ] SAX Parser Interface*
-- [ ] HTML and XML Function Builder Interfaces*
+- [x] HTML and XML Function Builder Interfaces
 
 > \* Coming soon!
 
@@ -130,6 +130,49 @@ document.body?.description // =>
 <div class="wrapper">
     <p>Hello, world!</p>
 </div>
+*/
+```
+
+#### Builder Interface
+
+Available in Swift 5.3+.
+
+```swift
+import HTML
+
+let document = HTML.Document {
+    html(["lang": "en"]) {
+        head {
+            meta(["charset": "UTF-8"])
+            title { "Hello, world!" }
+        }
+
+        body(["class": "beautiful"]) {
+            div(["class": "wrapper"]) {
+                span { "Hello," }
+                tag("span") { "world!" }
+            }
+        }
+    }
+}
+
+document.description // =>
+/*
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Hello, world!</title>
+  </head>
+  <body class="beautiful">
+      <?greeter start>
+      <div class="wrapper">
+          <span>Hello,</span>
+          <span>world!</span>
+      </div>
+      <?greeter end>
+  </body>
+</html>
+
 */
 ```
 

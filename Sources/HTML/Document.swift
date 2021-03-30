@@ -10,8 +10,13 @@ public final class Document: DOM.Document {
         }
 
         set {
+            guard let root = root else { return }
             if let newValue = newValue {
-                head?.replace(with: newValue)
+                if let oldValue = head {
+                    oldValue.replace(with: newValue)
+                } else {
+                    root.insert(child: newValue)
+                }
             } else {
                 head?.remove()
             }
@@ -24,10 +29,15 @@ public final class Document: DOM.Document {
         }
 
         set {
+            guard let root = root else { return }
             if let newValue = newValue {
-                head?.replace(with: newValue)
+                if let oldValue = body {
+                    oldValue.replace(with: newValue)
+                } else {
+                    root.insert(child: newValue)
+                }
             } else {
-                head?.remove()
+                body?.remove()
             }
         }
     }
@@ -46,7 +56,7 @@ public final class Document: DOM.Document {
 
     public convenience init?() {
         guard let xmlDoc = htmlNewDocNoDtD(nil, nil) else { return nil }
-        self.init(rawValue: UnsafeMutableRawPointer(xmlDoc))
+        self.init(rawValue: UnsafeMutableRawPointer(xmlDoc))!
     }
 
     // MARK: - RawRepresentable
@@ -91,5 +101,22 @@ extension Document {
 //        defer { xmlXPathFreeObject(object) }
 
         return XPath.Object(rawValue: object)
+    }
+}
+
+// MARK: - Builder
+
+extension Document {
+    public convenience init?(@DOMBuilder builder: () -> Node) {
+        self.init()
+
+        switch builder() {
+        case let fragment as DocumentFragment:
+            for child in fragment.children {
+                self.insert(child: child)
+            }
+        case let node:
+            self.insert(child: node)
+        }
     }
 }

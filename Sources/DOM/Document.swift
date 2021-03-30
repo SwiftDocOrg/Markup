@@ -22,6 +22,10 @@ open class Document: Node {
         return String.Encoding(ianaCharacterSetName: ianaCharacterSetName)
     }
 
+    public func insert(child node: Node) {
+        xmlAddChild(xmlNode, node.xmlNode)
+    }
+
     public var root: Element? {
         get {
             guard let rawValue = xmlDocGetRootElement(xmlDoc) else { return nil }
@@ -37,7 +41,7 @@ open class Document: Node {
         }
     }
 
-    func clone(behavior: CloningBehavior = .recursive) throws -> Self {
+    public func clone(behavior: CloningBehavior = .recursive) throws -> Self {
         guard let rawValue = xmlCopyDoc(xmlDoc, behavior.rawValue) else { throw Error.unknown }
         return Self(rawValue: UnsafeMutableRawPointer(rawValue))!
     }

@@ -17,9 +17,9 @@ public final class ProcessingInstruction: Node {
 
     // MARK: -
 
-    public convenience init?(name: String, content: String?) {
-        guard let xmlNode = xmlNewPI(name, content) else { return nil }
-        self.init(rawValue: UnsafeMutableRawPointer(xmlNode))
+    public convenience init(target: String, content: String?) {
+        let xmlNode = xmlNewPI(target, content)!
+        self.init(rawValue: UnsafeMutableRawPointer(xmlNode))!
     }
 
     // MARK: -
@@ -27,5 +27,13 @@ public final class ProcessingInstruction: Node {
     public required init?(rawValue: UnsafeMutableRawPointer) {
         guard rawValue.bindMemory(to: _xmlNode.self, capacity: 1).pointee.type == XML_PI_NODE else { return nil }
         super.init(rawValue: rawValue)
+    }
+}
+
+// MARK: - StringBuilder
+
+extension ProcessingInstruction {
+    public convenience init(target: String, @StringBuilder _ builder: () -> String) {
+        self.init(target: target, content: builder())
     }
 }

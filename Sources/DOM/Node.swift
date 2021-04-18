@@ -7,7 +7,7 @@ open class Node: RawRepresentable, Equatable, Hashable, CustomStringConvertible 
     }
     
     public var line: Int {
-        return xmlGetLineNo(xmlNode)
+        return numericCast(xmlGetLineNo(xmlNode))
     }
 
     public var isBlank: Bool {

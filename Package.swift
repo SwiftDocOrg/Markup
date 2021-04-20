@@ -3,9 +3,25 @@
 
 import PackageDescription
 
+#if os(Windows)
+let systemLibraries: [Target] = []
+let systemDependencies: [Target.Dependency] = []
+#else
 var providers: [SystemPackageProvider] = [.apt(["libxml2-dev"])]
 #if swift(<5.2)
 providers += [.brew(["libxml2"])]
+#endif
+let systemLibraries: [Target] = [
+    .systemLibrary(
+        name: "libxml2",
+        path: "Modules",
+        pkgConfig: "libxml-2.0",
+        providers: providers
+    )
+]
+let systemDependencies: [Target.Dependency] = [
+    "libxml2"
+]
 #endif
 
 let package = Package(
@@ -20,34 +36,28 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
     ],
-    targets: [
+    targets: systemLibraries + [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
-        .systemLibrary(
-            name: "libxml2",
-            path: "Modules",
-            pkgConfig: "libxml-2.0",
-            providers: providers
-        ),
         .target(
             name: "DOM",
-            dependencies: ["libxml2"]),
+            dependencies: systemDependencies),
         .target(
             name: "HTML",
-            dependencies: ["DOM", "XPath", "libxml2"],
+            dependencies: ["DOM", "XPath"] + systemDependencies,
             exclude: ["HTMLTags.swift.gyb"]),
         .target(
             name: "XML",
-            dependencies: ["DOM", "XPath", "libxml2"]),
+            dependencies: ["DOM", "XPath"] + systemDependencies),
         .target(
             name: "XPath",
-            dependencies: ["DOM", "libxml2"]),
+            dependencies: ["DOM"] + systemDependencies),
         .target(
             name: "XInclude",
-            dependencies: ["libxml2"]),
+            dependencies: systemDependencies),
         .target(
             name: "XSLT",
-            dependencies: ["libxml2"]),
+            dependencies: systemDependencies),
         .testTarget(
             name: "HTMLTests",
             dependencies: ["HTML"]),

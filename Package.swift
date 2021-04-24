@@ -4,8 +4,12 @@
 import PackageDescription
 
 #if os(Windows)
-let systemLibraries: [Target] = []
-let systemDependencies: [Target.Dependency] = []
+let systemLibraries: [Target] = [
+  .systemLibrary(
+      name: "libxml2",
+      path: "Modules"
+  ),
+]
 #else
 var providers: [SystemPackageProvider] = [.apt(["libxml2-dev"])]
 #if swift(<5.2)
@@ -18,9 +22,6 @@ let systemLibraries: [Target] = [
         pkgConfig: "libxml-2.0",
         providers: providers
     )
-]
-let systemDependencies: [Target.Dependency] = [
-    "libxml2"
 ]
 #endif
 
@@ -41,23 +42,23 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "DOM",
-            dependencies: systemDependencies),
+            dependencies: ["libxml2"]),
         .target(
             name: "HTML",
-            dependencies: ["DOM", "XPath"] + systemDependencies,
+            dependencies: ["DOM", "XPath", "libxml2"],
             exclude: ["HTMLTags.swift.gyb"]),
         .target(
             name: "XML",
-            dependencies: ["DOM", "XPath"] + systemDependencies),
+            dependencies: ["DOM", "XPath", "libxml2"]),
         .target(
             name: "XPath",
-            dependencies: ["DOM"] + systemDependencies),
+            dependencies: ["DOM", "libxml2"]),
         .target(
             name: "XInclude",
-            dependencies: systemDependencies),
+            dependencies: ["libxml2"]),
         .target(
             name: "XSLT",
-            dependencies: systemDependencies),
+            dependencies: ["libxml2"]),
         .testTarget(
             name: "HTMLTests",
             dependencies: ["HTML"]),

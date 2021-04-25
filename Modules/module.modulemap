@@ -1,5 +1,4 @@
 module libxml2 [system] {
-    link "xml2"
     umbrella header "libxml2-markup.h"
     export *
     module * { export * }

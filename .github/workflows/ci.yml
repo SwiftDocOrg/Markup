@@ -74,4 +74,4 @@ jobs:
           Copy-Item "$env:SDKROOT\usr\share\winsdk.modulemap" -destination "$env:UniversalCRTSdkDir\Include\$env:UCRTVersion\um\module.modulemap"
 
       - name: Build and Test
-        run: swift test --enable-test-discovery -Xswiftc -DLIBXML_STATIC -Xcc -IC:\Library\libxml2-development\usr\include -Xcc -IC:\Library\libxml2-development\usr\include\libxml2 -Xlinker -LC:\Library\libxml2-development\usr\lib
+        run: swift test --enable-test-discovery -Xcc -DLIBXML_STATIC -Xcc -IC:\Library\libxml2-development\usr\include -Xcc -IC:\Library\libxml2-development\usr\include\libxml2 -Xlinker -LC:\Library\libxml2-development\usr\lib

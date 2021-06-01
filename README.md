@@ -217,6 +217,20 @@ targets: [
     dependencies: ["Markup"]),
 ```
 
+If you're using Markup in an app,
+link `libxml2` to your target.
+Open your Xcode project (`.xcodeproj`) or workspace (`.xcworkspace`) file,
+select your top-level project entry in the Project Navigator,
+and select the target using Markup listed under the Targets heading. 
+Navigate to the "Build Phases" tab,
+expand "Link Binary With Libraries",
+and click the <kbd>+</kbd> button to add a library.
+Enter "libxml2" to the search bar,
+select "libxml2.tbd" from the filtered list,
+and click the Add button.
+
+<img width="512" alt="Add libxml2 library to your target" src="https://user-images.githubusercontent.com/7659/120312587-c7036d80-c28d-11eb-9388-d523c5f6916f.png">
+
 ## License
 
 MIT

@@ -69,7 +69,7 @@ open class Node: RawRepresentable, Equatable, Hashable, CustomStringConvertible 
 // MARK: -
 
 public protocol Constructable {
-    static func construct(with rawValue: xmlNodePtr) -> Node?
+    static func construct(with rawValue: xmlNodePtr?) -> Node?
 }
 
 extension Constructable where Self: Node {

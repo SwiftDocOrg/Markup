@@ -23,5 +23,17 @@ final class XMLBuilderTests: XCTestCase {
 
         XCTAssertEqual(actual?.description, expected?.description)
     }
+    
+    func testTraverse() throws {
+        let xml = #"""
+            <root/>
+        """#
+        
+        let doc = try XML.Document(string: xml)!
+        let root = doc.root!
+        XCTAssertEqual(root.name, "root")
+        XCTAssertNil(root.next)
+        XCTAssertNil(root.previous)
+    }
 }
 #endif

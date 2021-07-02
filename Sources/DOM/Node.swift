@@ -73,20 +73,37 @@ public protocol Constructable {
 }
 
 extension Constructable where Self: Node {
+    
     public var children: [Node] {
         guard let firstChild = xmlNode.pointee.children else { return [] }
         return sequence(first: firstChild, next: { $0.pointee.next })
                 .compactMap { Self.construct(with: $0) }
     }
-    
-    public func firstChildElement(named name: String) -> Element? {
-        for case let element as Element in children where element.name == name {
-            return element
-        }
-        
-        return nil
+
+    public var firstChildElement: Element? {
+        return findFirstNode(start: xmlNode.pointee.children, next: { $0.pointee.next }) { node in
+            node as? Element != nil
+        } as? Element
     }
-    
+
+    public func firstChildElement(named name: String) -> Element? {
+        return findFirstNode(start: xmlNode.pointee.children, next: { $0.pointee.next }) { node in
+            (node as? Element)?.name == name
+        } as? Element
+    }
+
+    public var lastChildElement: Element? {
+        return findFirstNode(start: lastChild?.xmlNode, next: { $0.pointee.prev }) { node in
+            (node as? Element) != nil
+        } as? Element
+    }
+
+    public func lastChildElement(named name: String) -> Element? {
+        return findFirstNode(start: lastChild?.xmlNode, next: { $0.pointee.prev }) { node in
+            (node as? Element)?.name == name
+        } as? Element
+    }
+
     public var parent: Element? {
         return Element(rawValue: xmlNode.pointee.parent)
     }
@@ -94,11 +111,19 @@ extension Constructable where Self: Node {
     public var previous: Node? {
         return Self.construct(with: xmlNode.pointee.prev)
     }
-    
+
     public var next: Node? {
         return Self.construct(with: xmlNode.pointee.next)
     }
+
+    public var firstChild: Node? {
+        return Self.construct(with: xmlNode.pointee.children)
+    }
     
+    public var lastChild: Node? {
+        return Self.construct(with: xmlGetLastChild(xmlNode))
+    }
+
     @discardableResult
     public func unwrap() -> Node? {
         let children = sequence(first: xmlNode.pointee.children, next: { $0.pointee.next }).compactMap { Node(rawValue: $0) }
@@ -117,5 +142,22 @@ extension Constructable where Self: Node {
         defer { unlink() }
         
         return children.first
+    }
+    
+    private func findFirstNode(
+        start: UnsafeMutablePointer<_xmlNode>?,
+        next: @escaping (xmlNodePtr) -> xmlNodePtr?,
+        where predicate: (Node) -> Bool ) -> Node?
+    {
+        var n = start
+        while let each = n {
+            if let node = Self.construct(with: each) {
+                if predicate(node) {
+                    return node
+                }
+            }
+            n = next(each)
+        }
+        return nil
     }
 }

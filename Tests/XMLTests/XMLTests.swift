@@ -117,7 +117,10 @@ final class XMLTests: XCTestCase {
         XCTAssertNil(root.firstChild?.lastChild)
         XCTAssertNil(root.firstChildElement?.firstChild)
         XCTAssertNil(root.firstChildElement?.lastChild)
-
+    }
+    
+    func testParent() throws {
+        XCTAssertNil(Element(name: "test").parent)
     }
 
 }

@@ -92,4 +92,35 @@ final class XMLTests: XCTestCase {
         XCTAssertEqual(results?.count, 1)
         XCTAssertEqual(results?.first?["name"], "h1")
     }
+    
+    func testTraverse() throws {
+        let xml = #"""
+            <root>
+                hello
+                <one/>
+                <two/>
+                <three/>
+                world
+            </root>
+        """#
+        
+        let doc = try XML.Document(string: xml, options: [.removeBlankNodes])!
+        let root = doc.root!
+        XCTAssertEqual(root.name, "root")
+        XCTAssertNil(root.next)
+        XCTAssertNil(root.previous)
+        XCTAssertEqual(root.firstChildElement?.name, "one")
+        XCTAssertEqual(root.lastChildElement?.name, "three")
+        XCTAssertEqual(root.firstChild?.content?.trimmingCharacters(in: .whitespacesAndNewlines), "hello")
+        XCTAssertEqual(root.lastChild?.content?.trimmingCharacters(in: .whitespacesAndNewlines), "world")
+        XCTAssertNil(root.firstChild?.firstChild)
+        XCTAssertNil(root.firstChild?.lastChild)
+        XCTAssertNil(root.firstChildElement?.firstChild)
+        XCTAssertNil(root.firstChildElement?.lastChild)
+    }
+    
+    func testParent() throws {
+        XCTAssertNil(Element(name: "test").parent)
+    }
+
 }

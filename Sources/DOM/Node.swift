@@ -20,7 +20,7 @@ open class Node: RawRepresentable, Equatable, Hashable, CustomStringConvertible 
     
     public var content: String? {
         get {
-            return String(cString: xmlNodeGetContent(xmlNode))
+            return String(xmlString: xmlNodeGetContent(xmlNode))
         }
         
         set {
@@ -30,7 +30,7 @@ open class Node: RawRepresentable, Equatable, Hashable, CustomStringConvertible 
     
     public var xpath: String? {
         guard let cString = xmlGetNodePath(xmlNode) else { return nil }
-        return String(cString: cString)
+        return String(xmlString: cString)
     }
     
     func unlink() {

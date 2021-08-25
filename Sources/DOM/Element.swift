@@ -32,7 +32,11 @@ public final class Element: Node {
         }
 
         set {
-            xmlSetProp(xmlNode, attribute, newValue)
+            if let newValue = newValue {
+                xmlSetProp(xmlNode, attribute, newValue)
+            } else {
+                xmlUnsetProp(xmlNode, attribute)
+            }
         }
     }
 

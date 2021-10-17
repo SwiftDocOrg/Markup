@@ -14,15 +14,13 @@ based on [libxml2][libxml2].
 - [x] XHTML4 Support
 - [x] XPath Expression Evaluation
 - [ ] HTML5 Support (using [Gumbo][gumbo])
-- [ ] CSS Selector to XPath Functionality*
-- [ ] XML Namespace Support*
-- [ ] DTD and Relax-NG Validation*
-- [ ] XInclude Support*
-- [ ] XSLT Support*
-- [ ] SAX Parser Interface*
+- [ ] CSS Selector to XPath Functionality
+- [ ] XML Namespace Support
+- [ ] DTD and Relax-NG Validation
+- [ ] XInclude Support
+- [ ] XSLT Support
+- [ ] SAX Parser Interface
 - [x] HTML and XML Function Builder Interfaces
-
-> \* Coming soon!
 
 ## Requirements
 

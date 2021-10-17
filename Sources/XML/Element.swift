@@ -23,9 +23,17 @@ extension Element {
         
         set {
             if let namespace = namespace {
-                xmlSetNsProp(xmlNode, namespace.rawValue, attribute, newValue)
+                if let newValue = newValue {
+                    xmlSetNsProp(xmlNode, namespace.rawValue, attribute, newValue)
+                } else {
+                    xmlUnsetNsProp(xmlNode, namespace.rawValue, attribute)
+                }
             } else {
-                xmlSetProp(xmlNode, attribute, newValue)
+                if let newValue = newValue {
+                    xmlSetProp(xmlNode, attribute, newValue)
+                } else {
+                    xmlUnsetProp(xmlNode, attribute)
+                }
             }
         }
     }

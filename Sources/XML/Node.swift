@@ -3,7 +3,11 @@ import libxml2
 import DOM
 
 extension Node: Constructable {
-    public static func construct(with rawValue: xmlNodePtr) -> Node? {
+    public static func construct(with rawValue: xmlNodePtr?) -> Node? {
+        guard let rawValue = rawValue else {
+            return nil
+        }
+
         switch rawValue.pointee.type {
         case XML_ELEMENT_NODE:
             return Element(rawValue: rawValue)

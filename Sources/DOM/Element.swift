@@ -32,7 +32,11 @@ public final class Element: Node {
         }
 
         set {
-            xmlSetProp(xmlNode, attribute, newValue)
+            if let newValue = newValue {
+                xmlSetProp(xmlNode, attribute, newValue)
+            } else {
+                xmlUnsetProp(xmlNode, attribute)
+            }
         }
     }
 
@@ -79,7 +83,10 @@ public final class Element: Node {
 
     // MARK: -
 
-    public required init?(rawValue: UnsafeMutableRawPointer) {
+    public required init?(rawValue: UnsafeMutableRawPointer?) {
+        guard let rawValue = rawValue else {
+             return nil
+        }
         guard rawValue.bindMemory(to: _xmlNode.self, capacity: 1).pointee.type == XML_ELEMENT_NODE else { return nil }
         super.init(rawValue: rawValue)
     }
